@@ -13,6 +13,15 @@
 		D2C73F36291A87DE004BCED9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D2C73F34291A87DE004BCED9 /* Main.storyboard */; };
 		D2C73F38291A87DF004BCED9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D2C73F37291A87DF004BCED9 /* Assets.xcassets */; };
 		D2C73F3B291A87DF004BCED9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D2C73F39291A87DF004BCED9 /* LaunchScreen.storyboard */; };
+		D2C73F44291A8808004BCED9 /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = D2C73F43291A8808004BCED9 /* Then */; };
+		D2C73F47291A8817004BCED9 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = D2C73F46291A8817004BCED9 /* SnapKit */; };
+		D2C73F49291A9D2B004BCED9 /* customView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2C73F48291A9D2B004BCED9 /* customView.swift */; };
+		D2C73F4E291AA7FD004BCED9 /* Dongle-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D2C73F4B291AA7FD004BCED9 /* Dongle-Light.ttf */; };
+		D2C73F4F291AA7FD004BCED9 /* Dongle-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D2C73F4C291AA7FD004BCED9 /* Dongle-Bold.ttf */; };
+		D2C73F50291AA7FD004BCED9 /* Dongle-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D2C73F4D291AA7FD004BCED9 /* Dongle-Regular.ttf */; };
+		D2C73F52291AA9C6004BCED9 /* Jua-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D2C73F51291AA9C5004BCED9 /* Jua-Regular.ttf */; };
+		D2C73F54291AB93F004BCED9 /* CALayer+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2C73F53291AB93F004BCED9 /* CALayer+Ext.swift */; };
+		D2C73F56291AC2F9004BCED9 /* 나눔손글씨 느릿느릿체.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D2C73F55291AC2F9004BCED9 /* 나눔손글씨 느릿느릿체.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +33,13 @@
 		D2C73F37291A87DF004BCED9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D2C73F3A291A87DF004BCED9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D2C73F3C291A87DF004BCED9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D2C73F48291A9D2B004BCED9 /* customView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = customView.swift; sourceTree = "<group>"; };
+		D2C73F4B291AA7FD004BCED9 /* Dongle-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Dongle-Light.ttf"; sourceTree = "<group>"; };
+		D2C73F4C291AA7FD004BCED9 /* Dongle-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Dongle-Bold.ttf"; sourceTree = "<group>"; };
+		D2C73F4D291AA7FD004BCED9 /* Dongle-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Dongle-Regular.ttf"; sourceTree = "<group>"; };
+		D2C73F51291AA9C5004BCED9 /* Jua-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Jua-Regular.ttf"; sourceTree = "<group>"; };
+		D2C73F53291AB93F004BCED9 /* CALayer+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CALayer+Ext.swift"; sourceTree = "<group>"; };
+		D2C73F55291AC2F9004BCED9 /* 나눔손글씨 느릿느릿체.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "나눔손글씨 느릿느릿체.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,6 +47,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D2C73F44291A8808004BCED9 /* Then in Frameworks */,
+				D2C73F47291A8817004BCED9 /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -40,6 +58,7 @@
 		D2C73F22291A87DE004BCED9 = {
 			isa = PBXGroup;
 			children = (
+				D2C73F4A291AA76C004BCED9 /* font */,
 				D2C73F2D291A87DE004BCED9 /* myChallengeApp */,
 				D2C73F2C291A87DE004BCED9 /* Products */,
 			);
@@ -59,12 +78,26 @@
 				D2C73F2E291A87DE004BCED9 /* AppDelegate.swift */,
 				D2C73F30291A87DE004BCED9 /* SceneDelegate.swift */,
 				D2C73F32291A87DE004BCED9 /* ViewController.swift */,
+				D2C73F48291A9D2B004BCED9 /* customView.swift */,
+				D2C73F53291AB93F004BCED9 /* CALayer+Ext.swift */,
 				D2C73F34291A87DE004BCED9 /* Main.storyboard */,
 				D2C73F37291A87DF004BCED9 /* Assets.xcassets */,
 				D2C73F39291A87DF004BCED9 /* LaunchScreen.storyboard */,
 				D2C73F3C291A87DF004BCED9 /* Info.plist */,
 			);
 			path = myChallengeApp;
+			sourceTree = "<group>";
+		};
+		D2C73F4A291AA76C004BCED9 /* font */ = {
+			isa = PBXGroup;
+			children = (
+				D2C73F51291AA9C5004BCED9 /* Jua-Regular.ttf */,
+				D2C73F4C291AA7FD004BCED9 /* Dongle-Bold.ttf */,
+				D2C73F55291AC2F9004BCED9 /* 나눔손글씨 느릿느릿체.ttf */,
+				D2C73F4B291AA7FD004BCED9 /* Dongle-Light.ttf */,
+				D2C73F4D291AA7FD004BCED9 /* Dongle-Regular.ttf */,
+			);
+			path = font;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -83,6 +116,10 @@
 			dependencies = (
 			);
 			name = myChallengeApp;
+			packageProductDependencies = (
+				D2C73F43291A8808004BCED9 /* Then */,
+				D2C73F46291A8817004BCED9 /* SnapKit */,
+			);
 			productName = myChallengeApp;
 			productReference = D2C73F2B291A87DE004BCED9 /* myChallengeApp.app */;
 			productType = "com.apple.product-type.application";
@@ -111,6 +148,10 @@
 				Base,
 			);
 			mainGroup = D2C73F22291A87DE004BCED9;
+			packageReferences = (
+				D2C73F42291A8808004BCED9 /* XCRemoteSwiftPackageReference "Then" */,
+				D2C73F45291A8817004BCED9 /* XCRemoteSwiftPackageReference "SnapKit" */,
+			);
 			productRefGroup = D2C73F2C291A87DE004BCED9 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -125,8 +166,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D2C73F56291AC2F9004BCED9 /* 나눔손글씨 느릿느릿체.ttf in Resources */,
+				D2C73F52291AA9C6004BCED9 /* Jua-Regular.ttf in Resources */,
+				D2C73F50291AA7FD004BCED9 /* Dongle-Regular.ttf in Resources */,
 				D2C73F3B291A87DF004BCED9 /* LaunchScreen.storyboard in Resources */,
 				D2C73F38291A87DF004BCED9 /* Assets.xcassets in Resources */,
+				D2C73F4E291AA7FD004BCED9 /* Dongle-Light.ttf in Resources */,
+				D2C73F4F291AA7FD004BCED9 /* Dongle-Bold.ttf in Resources */,
 				D2C73F36291A87DE004BCED9 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -139,8 +185,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				D2C73F33291A87DE004BCED9 /* ViewController.swift in Sources */,
+				D2C73F49291A9D2B004BCED9 /* customView.swift in Sources */,
 				D2C73F2F291A87DE004BCED9 /* AppDelegate.swift in Sources */,
 				D2C73F31291A87DE004BCED9 /* SceneDelegate.swift in Sources */,
+				D2C73F54291AB93F004BCED9 /* CALayer+Ext.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -356,6 +404,38 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		D2C73F42291A8808004BCED9 /* XCRemoteSwiftPackageReference "Then" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/devxoul/Then";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+		D2C73F45291A8817004BCED9 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
+			requirement = {
+				branch = develop;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		D2C73F43291A8808004BCED9 /* Then */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D2C73F42291A8808004BCED9 /* XCRemoteSwiftPackageReference "Then" */;
+			productName = Then;
+		};
+		D2C73F46291A8817004BCED9 /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D2C73F45291A8817004BCED9 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = D2C73F23291A87DE004BCED9 /* Project object */;
 }
