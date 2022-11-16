@@ -1,6 +1,15 @@
 {
   "pins" : [
     {
+      "identity" : "fakery",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/vadymmarkov/Fakery",
+      "state" : {
+        "branch" : "master",
+        "revision" : "fb7ca285377a2163867fa2c2e61d06d5f6eaedfb"
+      }
+    },
+    {
       "identity" : "snapkit",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/SnapKit/SnapKit.git",

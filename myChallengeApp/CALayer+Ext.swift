@@ -8,6 +8,8 @@
 import Foundation
 import UIKit
 
+// ViewController에서 작성해도 되지만, 코드가 길어지고 복잡해지므로
+// CALayer와 관련된 부분을 새 파일로 만들어서 작성함 (이후 찾기도 쉬울듯)
 extension CALayer {
     /// 그림자 적용
     /// - Parameters:
@@ -25,6 +27,7 @@ extension CALayer {
     blur: CGFloat = 35,
     spread: CGFloat = 0)
   {
+      // 그림자 설정 시 꼭 설정해줘야 함
     masksToBounds = false
     shadowColor = color.cgColor
     shadowOpacity = alpha
