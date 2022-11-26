@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="liy-SJ-BRN">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="나눔손글씨 느릿느릿체.ttf">
+            <string>NanumNeuRisNeuRisCe</string>
+        </array>
+    </customFonts>
+    <scenes>
+        <!--AddChallengeVC-->
+        <scene sceneID="yJq-ef-wEt">
+            <objects>
+                <viewController storyboardIdentifier="AddChallengeVC" title="AddChallengeVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="liy-SJ-BRN" customClass="AddChallengeVC" customModule="myChallengeApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="652-IZ-Icw">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6fJ-gk-8lw" userLabel="ChallengeBoardView" customClass="CustomView" customModule="myChallengeApp" customModuleProvider="target">
+                                <rect key="frame" x="15" y="109" width="363" height="610"/>
+                                <subviews>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="justified" translatesAutoresizingMaskIntoConstraints="NO" id="5UC-sK-AXw" customClass="CustomTextView" customModule="myChallengeApp" customModuleProvider="target">
+                                        <rect key="frame" x="20" y="423" width="323" height="167"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="textColor" systemColor="labelColor"/>
+                                        <fontDescription key="fontDescription" name="NanumNeuRisNeuRisCe" family="나눔손글씨 느릿느릿체" pointSize="17"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="10"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="hasShadow" value="YES"/>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                <color key="value" red="1" green="0.83234566450000003" blue="0.47320586440000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                <real key="value" value="4"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </textView>
+                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="제목을 입력하세요." textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="981-Qt-8nc" customClass="CustomTextField" customModule="myChallengeApp" customModuleProvider="target">
+                                        <rect key="frame" x="20" y="20" width="148.33333333333334" height="40"/>
+                                        <fontDescription key="fontDescription" name="NanumNeuRisNeuRisCe" family="나눔손글씨 느릿느릿체" pointSize="26"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="10"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                <color key="value" red="1" green="0.83234566450000003" blue="0.47320586440000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="hasShadow" value="YES"/>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                <real key="value" value="4"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </textField>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="evZ-gK-A5f" customClass="CustomImgView" customModule="myChallengeApp" customModuleProvider="target">
+                                        <rect key="frame" x="20" y="81" width="325" height="322.33333333333337"/>
+                                        <color key="tintColor" red="1" green="0.83234566450000003" blue="0.47320586440000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="evZ-gK-A5f" secondAttribute="height" multiplier="1:1" id="Lhu-34-Dxw"/>
+                                        </constraints>
+                                        <imageReference key="image" image="camera.badge.ellipsis" catalog="system"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="hasShadow" value="YES"/>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="14"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                <real key="value" value="5"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                <color key="value" red="1" green="0.83234566450000003" blue="0.47320586440000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstItem="5UC-sK-AXw" firstAttribute="centerX" secondItem="6fJ-gk-8lw" secondAttribute="centerX" id="088-Qg-GZg"/>
+                                    <constraint firstItem="evZ-gK-A5f" firstAttribute="top" secondItem="981-Qt-8nc" secondAttribute="bottom" constant="20" id="2EJ-Aw-ntK"/>
+                                    <constraint firstItem="5UC-sK-AXw" firstAttribute="bottom" secondItem="6fJ-gk-8lw" secondAttribute="bottom" constant="-20" id="ScC-Sk-Dv3"/>
+                                    <constraint firstItem="5UC-sK-AXw" firstAttribute="top" secondItem="evZ-gK-A5f" secondAttribute="bottom" constant="20" id="XAQ-8x-a9X"/>
+                                    <constraint firstItem="5UC-sK-AXw" firstAttribute="leading" secondItem="evZ-gK-A5f" secondAttribute="leading" id="XPx-D7-eqQ"/>
+                                    <constraint firstItem="981-Qt-8nc" firstAttribute="leading" secondItem="6fJ-gk-8lw" secondAttribute="leading" constant="20" id="aRa-L3-NGY"/>
+                                    <constraint firstItem="evZ-gK-A5f" firstAttribute="centerX" secondItem="6fJ-gk-8lw" secondAttribute="centerX" id="jdE-hI-iep"/>
+                                    <constraint firstItem="981-Qt-8nc" firstAttribute="top" secondItem="6fJ-gk-8lw" secondAttribute="top" constant="20" id="pEd-av-K6F"/>
+                                    <constraint firstItem="evZ-gK-A5f" firstAttribute="leading" secondItem="981-Qt-8nc" secondAttribute="leading" id="q3H-4a-45w"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="20"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="hasShadow" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                        <real key="value" value="3"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                        <color key="value" red="0.94269317389999996" green="0.66933277980000006" blue="0.1146912343" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aKo-ak-R81">
+                                <rect key="frame" x="317" y="41" width="61" height="35"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Save"/>
+                                <connections>
+                                    <action selector="onSaveBtnClicked:" destination="liy-SJ-BRN" eventType="touchUpInside" id="8F7-9z-bbH"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="fCa-Dm-PqE"/>
+                        <color key="backgroundColor" red="1" green="0.83234566450000003" blue="0.47320586440000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="6fJ-gk-8lw" firstAttribute="centerX" secondItem="fCa-Dm-PqE" secondAttribute="centerX" id="RU4-EV-3J4"/>
+                            <constraint firstItem="6fJ-gk-8lw" firstAttribute="top" secondItem="aKo-ak-R81" secondAttribute="bottom" constant="33" id="cOJ-0c-9KT"/>
+                            <constraint firstItem="aKo-ak-R81" firstAttribute="trailing" secondItem="6fJ-gk-8lw" secondAttribute="trailing" id="gcg-LK-tch"/>
+                            <constraint firstItem="6fJ-gk-8lw" firstAttribute="centerY" secondItem="fCa-Dm-PqE" secondAttribute="centerY" id="hzu-RF-j2g"/>
+                            <constraint firstItem="6fJ-gk-8lw" firstAttribute="top" secondItem="fCa-Dm-PqE" secondAttribute="top" constant="50" id="mSg-1y-owS"/>
+                            <constraint firstItem="6fJ-gk-8lw" firstAttribute="leading" secondItem="fCa-Dm-PqE" secondAttribute="leading" constant="15" id="wAT-Cu-j4y"/>
+                        </constraints>
+                    </view>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" title="ChallengeBoard" id="FeN-O9-e8k"/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="addImage" destination="evZ-gK-A5f" id="Y2K-kl-L2C"/>
+                        <outlet property="addText" destination="5UC-sK-AXw" id="GGw-gT-2YB"/>
+                        <outlet property="addTitle" destination="981-Qt-8nc" id="ecX-iD-MnG"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="PJl-O8-tEL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3994.6564885496182" y="0.0"/>
+        </scene>
+    </scenes>
+    <designables>
+        <designable name="981-Qt-8nc">
+            <size key="intrinsicContentSize" width="148.33333333333334" height="40"/>
+        </designable>
+        <designable name="evZ-gK-A5f">
+            <size key="intrinsicContentSize" width="24.666666666666668" height="20.333333333333332"/>
+        </designable>
+    </designables>
+    <resources>
+        <image name="camera.badge.ellipsis" catalog="system" width="128" height="94"/>
+        <systemColor name="labelColor">
+            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

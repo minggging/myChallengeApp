@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Y6W-OH-hqX">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="avf-6W-hE8">
     <device id="retina6_0" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -22,7 +22,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="MdQ-8n-5KK">
-                                <rect key="frame" x="0.0" y="47" width="390" height="763"/>
+                                <rect key="frame" x="0.0" y="91" width="390" height="719"/>
                                 <color key="backgroundColor" red="1" green="0.83234566450000003" blue="0.47320586440000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <inset key="scrollIndicatorInsets" minX="0.0" minY="10" maxX="0.0" maxY="10"/>
                                 <prototypes>
@@ -76,8 +76,12 @@
                                                         <userDefinedRuntimeAttribute type="boolean" keyPath="hasShadow" value="YES"/>
                                                     </userDefinedRuntimeAttributes>
                                                 </view>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="252" verticalHuggingPriority="252" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" text="Label" textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="none" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ldC-rd-mhb" customClass="CustomLabel" customModule="myChallengeApp" customModuleProvider="target">
-                                                    <rect key="frame" x="20.000000000000004" y="20" width="61.333333333333343" height="33"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="252" verticalHuggingPriority="252" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="none" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ldC-rd-mhb" customClass="CustomLabel" customModule="myChallengeApp" customModuleProvider="target">
+                                                    <rect key="frame" x="20" y="20" width="75" height="33"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="75" id="dfL-If-esN"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" name="NanumNeuRisNeuRisCe" family="나눔손글씨 느릿느릿체" pointSize="25"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -100,21 +104,31 @@
                                                     <state key="normal" title="Button"/>
                                                     <buttonConfiguration key="configuration" style="plain" image="pencil.circle.fill" catalog="system"/>
                                                 </button>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Gp-NB-amy">
+                                                    <rect key="frame" x="240.99999999999997" y="19.333333333333332" width="49.666666666666657" height="34.333333333333343"/>
+                                                    <color key="tintColor" red="1" green="0.83234566450000003" blue="0.47320586440000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <state key="normal" title="Button"/>
+                                                    <buttonConfiguration key="configuration" style="plain" image="square.and.arrow.up.circle.fill" catalog="system"/>
+                                                </button>
                                             </subviews>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstItem="hXR-5n-ZhB" firstAttribute="top" secondItem="IsD-Pn-t8Q" secondAttribute="top" constant="25" id="5Tn-No-F38"/>
+                                                <constraint firstItem="hXR-5n-ZhB" firstAttribute="leading" secondItem="6Gp-NB-amy" secondAttribute="trailing" constant="29.666666666666629" id="JTO-Li-Yv4"/>
                                                 <constraint firstItem="bUh-fQ-guj" firstAttribute="top" secondItem="hXR-5n-ZhB" secondAttribute="bottom" constant="25" id="PJg-db-S8k"/>
                                                 <constraint firstItem="ldC-rd-mhb" firstAttribute="leading" secondItem="IsD-Pn-t8Q" secondAttribute="leading" constant="20" id="QWL-i9-qxx"/>
                                                 <constraint firstAttribute="bottom" secondItem="ONF-et-nUt" secondAttribute="bottom" constant="60" id="Ugj-Ke-SVb"/>
                                                 <constraint firstItem="ONF-et-nUt" firstAttribute="trailing" secondItem="hXR-5n-ZhB" secondAttribute="trailing" id="bBg-mo-bfm"/>
                                                 <constraint firstItem="ONF-et-nUt" firstAttribute="top" secondItem="ldC-rd-mhb" secondAttribute="bottom" constant="20" id="eQ3-rM-Vmy"/>
+                                                <constraint firstItem="6Gp-NB-amy" firstAttribute="centerY" secondItem="hXR-5n-ZhB" secondAttribute="centerY" id="qSk-nx-yS1"/>
                                                 <constraint firstAttribute="trailing" secondItem="hXR-5n-ZhB" secondAttribute="trailing" constant="20" symbolic="YES" id="s5x-Za-rKw"/>
                                                 <constraint firstItem="ONF-et-nUt" firstAttribute="leading" secondItem="ldC-rd-mhb" secondAttribute="leading" id="tjW-cY-ZfO"/>
                                                 <constraint firstItem="ldC-rd-mhb" firstAttribute="top" secondItem="IsD-Pn-t8Q" secondAttribute="top" constant="20" id="uhp-W4-AH9"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="editBtn" destination="hXR-5n-ZhB" id="uZr-wE-XbC"/>
+                                            <outlet property="missionBtn" destination="6Gp-NB-amy" id="hf6-AC-6Du"/>
                                             <outlet property="tableViewImgView" destination="bUh-fQ-guj" id="uaN-Zk-AFP"/>
                                             <outlet property="tableViewLabel" destination="ldC-rd-mhb" id="ipn-QW-zMe"/>
                                         </connections>
@@ -131,22 +145,50 @@
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="MdQ-8n-5KK" secondAttribute="trailing" id="L77-d5-bKN"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="ohB-59-Ae5">
+                        <barButtonItem key="rightBarButtonItem" title="Item" image="plus.circle.fill" catalog="system" id="YKt-02-7gJ">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <connections>
+                                <action selector="onAddChallengeClicked:" destination="Y6W-OH-hqX" id="gAO-d2-I2u"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="myTableView" destination="MdQ-8n-5KK" id="4xs-iw-Vl5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="201.53846153846152" y="0.0"/>
+            <point key="canvasLocation" x="2989.2307692307691" y="0.0"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="cTJ-CD-riR">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="avf-6W-hE8" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="NMI-lH-baK">
+                        <rect key="frame" x="0.0" y="47" width="390" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Y6W-OH-hqX" kind="relationship" relationship="rootViewController" id="PwU-xh-o8A"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="poD-p3-5B5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2060" y="0.0"/>
         </scene>
     </scenes>
     <designables>
         <designable name="ldC-rd-mhb">
-            <size key="intrinsicContentSize" width="61.333333333333336" height="29.333333333333332"/>
+            <size key="intrinsicContentSize" width="33.333333333333336" height="29"/>
         </designable>
     </designables>
     <resources>
         <image name="pencil.circle.fill" catalog="system" width="128" height="123"/>
+        <image name="plus.circle.fill" catalog="system" width="128" height="123"/>
+        <image name="square.and.arrow.up.circle.fill" catalog="system" width="128" height="123"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
