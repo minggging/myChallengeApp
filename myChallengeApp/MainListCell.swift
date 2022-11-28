@@ -10,8 +10,8 @@ import UIKit
 
 class MainListCell: UITableViewCell {
     
-    @IBOutlet weak var tableViewLabel: UILabel!
-    @IBOutlet weak var tableViewImgView: UIImageView!
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var titleImage: UIImageView!
     
     @IBOutlet weak var editBtn: UIButton!
     @IBOutlet weak var missionBtn: UIButton!
@@ -42,7 +42,7 @@ class MainListCell: UITableViewCell {
     @objc fileprivate func editClicked(){
         print(#fileID, #function, #line, "- ")
         
-        let data : String = self.tableViewLabel.text ?? "값이 없음"
+        let data : String = self.titleLabel.text ?? "값이 없음"
 
         editBtnClicked?(data)
         
@@ -53,22 +53,9 @@ class MainListCell: UITableViewCell {
         print(#fileID, #function, #line, "- ")
         
         // 데이터 == 테이블뷰에 있는 이미지
-        let data : UIImage? = self.tableViewImgView.image
+        let data : UIImage? = self.titleImage.image
         // 이미지를 담음
         missionBtnClicked?(data)
     }
     
-    
-    
-    
-    
-//    @objc fileprivate func onEditClicked(_ sender: UIButton) {
-//        print(#fileID, #function, #line, "- ")
-//        //        onEditClicked?()
-//    }
-//
-//    @objc fileprivate func onMissionClicked(_ sender: UIButton) {
-//        print(#fileID, #function, #line, "- ")
-//    }
-
 }

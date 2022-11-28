@@ -129,8 +129,8 @@
                                         <connections>
                                             <outlet property="editBtn" destination="hXR-5n-ZhB" id="uZr-wE-XbC"/>
                                             <outlet property="missionBtn" destination="6Gp-NB-amy" id="hf6-AC-6Du"/>
-                                            <outlet property="tableViewImgView" destination="bUh-fQ-guj" id="uaN-Zk-AFP"/>
-                                            <outlet property="tableViewLabel" destination="ldC-rd-mhb" id="ipn-QW-zMe"/>
+                                            <outlet property="titleImage" destination="bUh-fQ-guj" id="dau-Li-CSI"/>
+                                            <outlet property="titleLabel" destination="ldC-rd-mhb" id="qjA-OD-1Ff"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>

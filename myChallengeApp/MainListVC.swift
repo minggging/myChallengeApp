@@ -64,11 +64,8 @@ extension MainListVC: UITableViewDataSource {
         let cellData = dataList[indexPath.row]
         
         // 위 작업을 마치면 커스텀 클래스의 outlet을 사용할 수 있다.
-        //        cell.tableViewLabel.text = labels[indexPath.row]
-        //        cell.tableViewImgView.image = UIImage(named: imgs[indexPath.row])
-        
-        cell.tableViewLabel.text = cellData.title
-        cell.tableViewImgView.image = cellData.screenShot
+        cell.titleLabel.text = cellData.title
+        cell.titleImage.image = cellData.screenShot
         
         let currentTitle = cellData.title
         let currentImg = cellData.screenShot
@@ -90,7 +87,6 @@ extension MainListVC {
     // 수정 전
     /// 챌린지 뷰컨으로 이동하라
     fileprivate func navigateToChallengeVC(title: String, image: UIImage?){
-//    fileprivate func navigateToChallengeVC(){
 
     print(#fileID, #function, #line, "- ")
         // 이름이 ChallengeBoard 라는 UIStoryboard 파일 찾기
@@ -101,7 +97,6 @@ extension MainListVC {
         
         // 챌린지보드뷰컨에 있는 doneBtnClicked(클로저)는
         // 매개변수로 challengeData를 받는다
-        
         challengeBoardVC.doneBtnClicked = { challengeData in
             
             print("MainListVC - doneBtnClicked 완료. : \(challengeData)")
@@ -115,9 +110,10 @@ extension MainListVC {
             self.myTableView.reloadData()
         }
         
+        
         let challengeData = Challenge(title: title,
                                       screenShot: image,
-                                      content: "")
+                                      content: self.dataList[0].content)
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
             challengeBoardVC.challengeData = challengeData
@@ -135,12 +131,8 @@ extension MainListVC {
         
         // 찾은 스토리보드에서 스토리보드 아이디가 ChallengeBoardVC 인 뷰컨을 가져와라
         let challengeBoardVC = storyboard.instantiateViewController(withIdentifier: "ChallengeBoardVC") as! ChallengeBoardVC
-        
-        //        challengeBoardVC.myChallengeImg?.image = selectedData
-        
+                
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
-            //            challengeBoardVC.selectedImg = selectedData
-            //            challengeBoardVC.title = sele
         })
         
         // 네비게이션 컨트롤러 푸시함
@@ -181,8 +173,8 @@ extension MainListVC {
         
         
         let challengeData = Challenge(title: addChallengeVC.challengeData?.title ?? "",
-                                      screenShot: addChallengeVC.challengeData?.screenShot ?? UIImage(systemName: "camera.badge.ellipsis")?.withTintColor(UIColor.systemYellow),
-                                      content: addChallengeVC.challengeData?.content ?? addChallengeVC.placeholderSetting(text: "내용을 입력해 주세요"))
+                                      screenShot: addChallengeVC.challengeData?.screenShot ?? UIImage(systemName: "camera.badge.ellipsis"),
+                                      content: addChallengeVC.challengeData?.content ?? "내용을 입력해주세요.")
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
             addChallengeVC.challengeData = challengeData
@@ -208,6 +200,7 @@ extension MainListVC {
 //MARK: - 테이블뷰 델리겟 관련
 
 extension MainListVC: UITableViewDelegate{
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("indexPath - \(indexPath.row)", #fileID, #function, #line)
     }
