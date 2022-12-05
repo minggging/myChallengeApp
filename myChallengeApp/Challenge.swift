@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 struct Challenge {
-    
+    let id: UUID = UUID()
     var title : String
     var screenShot : UIImage?
     var content : String

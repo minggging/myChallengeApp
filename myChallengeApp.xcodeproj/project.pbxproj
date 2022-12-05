@@ -7,9 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		D22E0865292CFD0F00D354D5 /* dummyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D22E0864292CFD0F00D354D5 /* dummyData.swift */; };
+		D22E0865292CFD0F00D354D5 /* Challenge.swift in Sources */ = {isa = PBXBuildFile; fileRef = D22E0864292CFD0F00D354D5 /* Challenge.swift */; };
 		D22E0867292D05F600D354D5 /* AddChallengeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D22E0866292D05F600D354D5 /* AddChallengeVC.swift */; };
 		D22E0869292DBFAC00D354D5 /* AddChallenge.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D22E0868292DBFAC00D354D5 /* AddChallenge.storyboard */; };
+		D2B07249293CC086004790B4 /* ChallengeDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2B07248293CC086004790B4 /* ChallengeDelegate.swift */; };
 		D2C73F2F291A87DE004BCED9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2C73F2E291A87DE004BCED9 /* AppDelegate.swift */; };
 		D2C73F31291A87DE004BCED9 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2C73F30291A87DE004BCED9 /* SceneDelegate.swift */; };
 		D2C73F33291A87DE004BCED9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2C73F32291A87DE004BCED9 /* ViewController.swift */; };
@@ -34,9 +35,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		D22E0864292CFD0F00D354D5 /* dummyData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = dummyData.swift; sourceTree = "<group>"; };
+		D22E0864292CFD0F00D354D5 /* Challenge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Challenge.swift; sourceTree = "<group>"; };
 		D22E0866292D05F600D354D5 /* AddChallengeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddChallengeVC.swift; sourceTree = "<group>"; };
 		D22E0868292DBFAC00D354D5 /* AddChallenge.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AddChallenge.storyboard; sourceTree = "<group>"; };
+		D2B07248293CC086004790B4 /* ChallengeDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeDelegate.swift; sourceTree = "<group>"; };
 		D2C73F2B291A87DE004BCED9 /* myChallengeApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = myChallengeApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2C73F2E291A87DE004BCED9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D2C73F30291A87DE004BCED9 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -95,6 +97,7 @@
 			children = (
 				D2C73F2E291A87DE004BCED9 /* AppDelegate.swift */,
 				D2C73F30291A87DE004BCED9 /* SceneDelegate.swift */,
+				D2B07248293CC086004790B4 /* ChallengeDelegate.swift */,
 				D2C73F32291A87DE004BCED9 /* ViewController.swift */,
 				D2E1C1692924CEDA00532E79 /* ChallengeBoardVC.swift */,
 				D22E0866292D05F600D354D5 /* AddChallengeVC.swift */,
@@ -109,7 +112,7 @@
 				D2C73F3C291A87DF004BCED9 /* Info.plist */,
 				D2C73F48291A9D2B004BCED9 /* CustomView.swift */,
 				D2C73F53291AB93F004BCED9 /* CALayer+Ext.swift */,
-				D22E0864292CFD0F00D354D5 /* dummyData.swift */,
+				D22E0864292CFD0F00D354D5 /* Challenge.swift */,
 			);
 			path = myChallengeApp;
 			sourceTree = "<group>";
@@ -216,13 +219,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				D2C73F33291A87DE004BCED9 /* ViewController.swift in Sources */,
+				D2B07249293CC086004790B4 /* ChallengeDelegate.swift in Sources */,
 				D2C73F49291A9D2B004BCED9 /* CustomView.swift in Sources */,
 				D22E0867292D05F600D354D5 /* AddChallengeVC.swift in Sources */,
 				D2C73F2F291A87DE004BCED9 /* AppDelegate.swift in Sources */,
 				D2CF40F4292478F00074FE41 /* MainListVC.swift in Sources */,
 				D2C73F31291A87DE004BCED9 /* SceneDelegate.swift in Sources */,
 				D2E1C16A2924CEDA00532E79 /* ChallengeBoardVC.swift in Sources */,
-				D22E0865292CFD0F00D354D5 /* dummyData.swift in Sources */,
+				D22E0865292CFD0F00D354D5 /* Challenge.swift in Sources */,
 				D2CF40F8292479C90074FE41 /* MainListCell.swift in Sources */,
 				D2C73F54291AB93F004BCED9 /* CALayer+Ext.swift in Sources */,
 			);

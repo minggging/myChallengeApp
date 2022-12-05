@@ -14,21 +14,17 @@ class MainListCell: UITableViewCell {
     @IBOutlet weak var titleImage: UIImageView!
     
     @IBOutlet weak var editBtn: UIButton!
-    @IBOutlet weak var missionBtn: UIButton!
     
-    var editBtnClicked : ((String) -> Void)? = nil
-    var missionBtnClicked : ((UIImage?) -> Void)? = nil
+    @objc var editBtnClicked : ((UIImage?) -> Void)? = nil
     
     // 뷰디드로드 같은 녀석
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
         print(#fileID, #function, #line, "- <#comment#>")
-        // 수정 버튼 -> editClicked을 호출
-        editBtn.addTarget(self, action: #selector(editClicked), for: .touchUpInside)
-        
-        // 미션버튼 -> missionClicked을 호출
-        missionBtn.addTarget(self, action: #selector(missionClicked), for: .touchUpInside)
+                
+        // 미션버튼 -> editBtnClicked을 호출
+        editBtn.addTarget(self, action: #selector(onEditBtnClicked), for: .touchUpInside)
         
         
     }
@@ -38,24 +34,15 @@ class MainListCell: UITableViewCell {
         
     }
     
-    // 테이블뷰의 라벨 제목을 데이터로 담음
-    @objc fileprivate func editClicked(){
-        print(#fileID, #function, #line, "- ")
-        
-        let data : String = self.titleLabel.text ?? "값이 없음"
-
-        editBtnClicked?(data)
-        
-    }
     
     // 이미지를 보냄
-    @objc fileprivate func missionClicked(){
+    @objc fileprivate func onEditBtnClicked(){
         print(#fileID, #function, #line, "- ")
         
         // 데이터 == 테이블뷰에 있는 이미지
         let data : UIImage? = self.titleImage.image
         // 이미지를 담음
-        missionBtnClicked?(data)
+        editBtnClicked?(data)
     }
     
 }

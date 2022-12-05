@@ -13,6 +13,8 @@ class ChallengeBoardVC: UIViewController {
     @IBOutlet weak var myImage: UIImageView!
     @IBOutlet weak var myText: UITextView!
 
+    @IBOutlet weak var doneBtn: UIButton!
+    
     
     var doneBtnClicked : ((Challenge?) -> Void)? = nil
     
@@ -26,10 +28,8 @@ class ChallengeBoardVC: UIViewController {
         }
     }
         
-    // 글 제목과 상단 제목 맞춤
-    func titleName () {
-        myTitle.text = self.title
-    }
+    var myDelegate: ChallengeDelegate? = nil
+    
     
     
     
@@ -37,12 +37,11 @@ class ChallengeBoardVC: UIViewController {
         super.viewDidLoad()
         myText.delegate = self
         
+        doneBtn.layer.cornerRadius = 10
         // 텍스트뷰 첫 화면(placeholder처럼 보이도록)
         myText.text = "내용을 입력해주세요."
-        myText.textColor = UIColor.lightGray
         print("여긴 화면 추가 뷰디드로드임")
 
-        titleName()
         
     }
     
@@ -54,21 +53,45 @@ class ChallengeBoardVC: UIViewController {
 
     
     
-    
-    
-    
-    
-    
-    
-    @IBAction func onDoneBtnClicked(_ sender: UIButton) {
+    @IBAction func onDoneBtnClicked(_ sender: UIButton) {                                                                                                                                                                                                               
         print(#fileID, #function, #line, "- ")
+        
+        self.challengeData?.title = self.myTitle.text ?? ""
+        self.challengeData?.content = self.myText.text ?? ""
+        
+        if let image = self.myImage.image {
+            self.challengeData?.screenShot = image
+        }
+
+        
+        guard let data = self.challengeData else { return }
+        
+        myDelegate?.editChallenge(edited: data)
         
         self.navigationController?.popViewController(animated: true)
         
-        self.doneBtnClicked?(self.challengeData)
-                
+//        self.doneBtnClicked?(self.challengeData)
+
+        
     }
     
+    @IBAction func onDeleteBtnClicked(_ sender: UIButton) {
+        print(#fileID, #function, #line, "- ")
+        
+        if let id = challengeData?.id {
+            myDelegate?.deleteChallenge(id: id)
+        }
+        
+//        guard let id = challengeData?.id else {
+//            print("id 없음")
+//            return
+//        }
+//        myDelegate?.deleteChallenge(id: id)
+
+        self.navigationController?.popViewController(animated: true)
+        
+        
+    }
     
 }
 
