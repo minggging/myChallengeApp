@@ -13,9 +13,15 @@ class MainListCell: UITableViewCell {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var titleImage: UIImageView!
     
+    @IBOutlet weak var customView: CustomView!
     @IBOutlet weak var editBtn: UIButton!
+        
     
     @objc var editBtnClicked : ((UIImage?) -> Void)? = nil
+    
+    
+    
+    
     
     // 뷰디드로드 같은 녀석
     override func awakeFromNib() {
@@ -23,12 +29,13 @@ class MainListCell: UITableViewCell {
         // Initialization code
         print(#fileID, #function, #line, "- <#comment#>")
                 
-        // 미션버튼 -> editBtnClicked을 호출
         editBtn.addTarget(self, action: #selector(onEditBtnClicked), for: .touchUpInside)
+        
         
         
     }
         
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         

@@ -14,7 +14,7 @@ protocol ChallengeDelegate {
     /// 챌린지가 추가되었다는 액션
     func addChallenge(added : Challenge)
     
-    func deleteChallenge(id : UUID)
+//    func deleteChallenge()
     
     /// 데이터 전송
     func dataSend()

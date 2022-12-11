@@ -52,7 +52,7 @@ class ChallengeBoardVC: UIViewController {
     }
 
     
-    
+    //MARK: - Done Btn
     @IBAction func onDoneBtnClicked(_ sender: UIButton) {                                                                                                                                                                                                               
         print(#fileID, #function, #line, "- ")
         
@@ -75,13 +75,15 @@ class ChallengeBoardVC: UIViewController {
         
     }
     
+/*    //MARK: - delete Btn
+
     @IBAction func onDeleteBtnClicked(_ sender: UIButton) {
         print(#fileID, #function, #line, "- ")
-        
+
         if let id = challengeData?.id {
             myDelegate?.deleteChallenge(id: id)
         }
-        
+
 //        guard let id = challengeData?.id else {
 //            print("id 없음")
 //            return
@@ -89,9 +91,14 @@ class ChallengeBoardVC: UIViewController {
 //        myDelegate?.deleteChallenge(id: id)
 
         self.navigationController?.popViewController(animated: true)
-        
-        
-    }
+
+
+    } */
+
+    
+    
+    
+    
     
 }
 

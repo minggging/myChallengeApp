@@ -50,7 +50,6 @@ class AddChallengeVC : UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         addText.delegate = self
-        
         saveBtn.layer.cornerRadius = 15
         
         // 텍스트뷰 첫 화면(placeholder처럼 보이도록)
@@ -59,7 +58,7 @@ class AddChallengeVC : UIViewController {
         print("여긴 화면 추가 뷰디드로드임")
         
         // 들어갈 이미지
-        self.addImage.image = UIImage(systemName: "photo.on.rectangle")
+        self.addImage.image = UIImage(named: "사용팁")
         
         //타이틀 = 글 제목
         self.title = self.addTitle.text
@@ -95,11 +94,8 @@ class AddChallengeVC : UIViewController {
         
         myAddDelegate?.addChallenge(added: newChallengeData)
         
-//        if let data = self.challengeData {
-//            myAddDelegate?.challengeAdded(added: data)
-//        }
+
         
-        // 뷰컨 팝
         self.navigationController?.popViewController(animated: true)
         
     }
@@ -175,7 +171,7 @@ class AddChallengeVC : UIViewController {
         view.endEditing(true)
     }
     
-    //MARK: - 이미치 추가 버튼
+    //MARK: - 이미지 추가 버튼
     @objc func showImageAlert(_ sender: UIButton) {
         print("이미지 버튼 클릭됨")
         // 이제 추가할 이미지를 불러와야지!

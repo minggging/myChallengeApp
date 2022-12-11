@@ -14,7 +14,6 @@
 		D2C73F2F291A87DE004BCED9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2C73F2E291A87DE004BCED9 /* AppDelegate.swift */; };
 		D2C73F31291A87DE004BCED9 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2C73F30291A87DE004BCED9 /* SceneDelegate.swift */; };
 		D2C73F33291A87DE004BCED9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2C73F32291A87DE004BCED9 /* ViewController.swift */; };
-		D2C73F36291A87DE004BCED9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D2C73F34291A87DE004BCED9 /* Main.storyboard */; };
 		D2C73F38291A87DF004BCED9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D2C73F37291A87DF004BCED9 /* Assets.xcassets */; };
 		D2C73F3B291A87DF004BCED9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D2C73F39291A87DF004BCED9 /* LaunchScreen.storyboard */; };
 		D2C73F44291A8808004BCED9 /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = D2C73F43291A8808004BCED9 /* Then */; };
@@ -30,6 +29,8 @@
 		D2CF40F4292478F00074FE41 /* MainListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2CF40F3292478F00074FE41 /* MainListVC.swift */; };
 		D2CF40F6292479170074FE41 /* MainList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D2CF40F5292479170074FE41 /* MainList.storyboard */; };
 		D2CF40F8292479C90074FE41 /* MainListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2CF40F7292479C90074FE41 /* MainListCell.swift */; };
+		D2DF42852940C2E1005B076D /* NanumSquareNeo-cBd.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D2DF42832940C2E1005B076D /* NanumSquareNeo-cBd.ttf */; };
+		D2DF42862940C2E1005B076D /* NanumSquareNeo-bRg.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D2DF42842940C2E1005B076D /* NanumSquareNeo-bRg.ttf */; };
 		D2E1C1682924B95A00532E79 /* ChallengeBoard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D2E1C1672924B95A00532E79 /* ChallengeBoard.storyboard */; };
 		D2E1C16A2924CEDA00532E79 /* ChallengeBoardVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2E1C1692924CEDA00532E79 /* ChallengeBoardVC.swift */; };
 /* End PBXBuildFile section */
@@ -43,7 +44,6 @@
 		D2C73F2E291A87DE004BCED9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D2C73F30291A87DE004BCED9 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		D2C73F32291A87DE004BCED9 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		D2C73F35291A87DE004BCED9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D2C73F37291A87DF004BCED9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D2C73F3A291A87DF004BCED9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D2C73F3C291A87DF004BCED9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -57,6 +57,8 @@
 		D2CF40F3292478F00074FE41 /* MainListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainListVC.swift; sourceTree = "<group>"; };
 		D2CF40F5292479170074FE41 /* MainList.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MainList.storyboard; sourceTree = "<group>"; };
 		D2CF40F7292479C90074FE41 /* MainListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainListCell.swift; sourceTree = "<group>"; };
+		D2DF42832940C2E1005B076D /* NanumSquareNeo-cBd.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NanumSquareNeo-cBd.ttf"; sourceTree = "<group>"; };
+		D2DF42842940C2E1005B076D /* NanumSquareNeo-bRg.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NanumSquareNeo-bRg.ttf"; sourceTree = "<group>"; };
 		D2E1C1672924B95A00532E79 /* ChallengeBoard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ChallengeBoard.storyboard; sourceTree = "<group>"; };
 		D2E1C1692924CEDA00532E79 /* ChallengeBoardVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeBoardVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -99,11 +101,10 @@
 				D2C73F30291A87DE004BCED9 /* SceneDelegate.swift */,
 				D2B07248293CC086004790B4 /* ChallengeDelegate.swift */,
 				D2C73F32291A87DE004BCED9 /* ViewController.swift */,
-				D2E1C1692924CEDA00532E79 /* ChallengeBoardVC.swift */,
-				D22E0866292D05F600D354D5 /* AddChallengeVC.swift */,
 				D2CF40F3292478F00074FE41 /* MainListVC.swift */,
+				D22E0866292D05F600D354D5 /* AddChallengeVC.swift */,
+				D2E1C1692924CEDA00532E79 /* ChallengeBoardVC.swift */,
 				D2CF40F7292479C90074FE41 /* MainListCell.swift */,
-				D2C73F34291A87DE004BCED9 /* Main.storyboard */,
 				D2CF40F5292479170074FE41 /* MainList.storyboard */,
 				D2E1C1672924B95A00532E79 /* ChallengeBoard.storyboard */,
 				D22E0868292DBFAC00D354D5 /* AddChallenge.storyboard */,
@@ -122,6 +123,8 @@
 			children = (
 				D2C73F51291AA9C5004BCED9 /* Jua-Regular.ttf */,
 				D2C73F4C291AA7FD004BCED9 /* Dongle-Bold.ttf */,
+				D2DF42842940C2E1005B076D /* NanumSquareNeo-bRg.ttf */,
+				D2DF42832940C2E1005B076D /* NanumSquareNeo-cBd.ttf */,
 				D2C73F55291AC2F9004BCED9 /* 나눔손글씨 느릿느릿체.ttf */,
 				D2C73F4B291AA7FD004BCED9 /* Dongle-Light.ttf */,
 				D2C73F4D291AA7FD004BCED9 /* Dongle-Regular.ttf */,
@@ -207,7 +210,8 @@
 				D2C73F4E291AA7FD004BCED9 /* Dongle-Light.ttf in Resources */,
 				D2E1C1682924B95A00532E79 /* ChallengeBoard.storyboard in Resources */,
 				D2C73F4F291AA7FD004BCED9 /* Dongle-Bold.ttf in Resources */,
-				D2C73F36291A87DE004BCED9 /* Main.storyboard in Resources */,
+				D2DF42862940C2E1005B076D /* NanumSquareNeo-bRg.ttf in Resources */,
+				D2DF42852940C2E1005B076D /* NanumSquareNeo-cBd.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -235,14 +239,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		D2C73F34291A87DE004BCED9 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				D2C73F35291A87DE004BCED9 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		D2C73F39291A87DF004BCED9 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (

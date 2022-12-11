@@ -8,6 +8,8 @@
 		<string>Dongle-Bold.ttf</string>
 		<string>Dongle-Regular.ttf</string>
 		<string>나눔손글씨 느릿느릿체.ttf</string>
+		<string>NanumSquareNeo-cBd.ttf</string>
+		<string>NanumSquareNeo-bRg.ttf</string>
 	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>

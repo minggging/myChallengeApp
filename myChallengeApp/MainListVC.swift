@@ -13,28 +13,24 @@ class MainListVC: UIViewController {
     @IBOutlet weak var myTableView: UITableView!
     
     var addBtnClicked : ((Challenge?) -> Void)? = nil
-    
-    
+        
     var dataList : [Challenge] = [
-        Challenge(title: "Day 1 ! 오늘의 챌린지는?", screenShot: UIImage(systemName: "photo.on.rectangle")?.withTintColor(UIColor.yellow), content: "오늘의 노력에 대해서 적어주세요 ! "),
-
-//        Challenge(title: "Day 3", screenShot: UIImage(named: "1"), content: "컨텐츠 : Day 3"),
-//        Challenge(title: "Day 2", screenShot: UIImage(named: "2"), content: "컨텐츠 : Day 2"),
-//        Challenge(title: "Day 1", screenShot: UIImage(named: "3"), content: "컨텐츠 : Day 1")
-    ]
+        Challenge(title: "Day 1 ! 오늘의 챌린지는?", screenShot: UIImage(named: "사용팁"), content: "오늘의 노력에 대해서 적어주세요 ! ")]
+    
+    var mainDelegate: ChallengeDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         myTableView.dataSource = self
         myTableView.delegate = self
+                
         
         let addChallegeStoryboard = UIStoryboard(name: "AddChallenge", bundle: Bundle.main)
         let addChallengeVC = addChallegeStoryboard.instantiateViewController(withIdentifier: "AddChallengeVC") as! AddChallengeVC
         
-        
         addChallengeVC.myAddDelegate = self
         
-    }
+    } // viewDidLoad.
     
     // + 버튼을 누르면 챌린지 추가 화면으로 이동함
     @IBAction func onAddChallengeClicked(_ sender: Any) {
@@ -43,7 +39,55 @@ class MainListVC: UIViewController {
         self.navigateToAddChallengeVC()
         
     }
+    /*    //MARK: - delete Btn
+
+        @IBAction func onDeleteBtnClicked(_ sender: UIButton) {
+            print(#fileID, #function, #line, "- ")
+
+            if let id = challengeData?.id {
+                myDelegate?.deleteChallenge(id: id)
+            }
+
+    //        guard let id = challengeData?.id else {
+    //            print("id 없음")
+    //            return
+    //        }
+    //        myDelegate?.deleteChallenge(id: id)
+
+            self.navigationController?.popViewController(animated: true)
+
+
+        } */
+
+
     
+    //MARK: - deleteBtn 관련
+    @IBAction func deleteBtn(_ sender: UIButton) {
+        let alert = UIAlertController(title: nil, message:"삭제 하시겠습니까?", preferredStyle: UIAlertController.Style.alert)
+                let okAction = UIAlertAction(title: "삭제", style: .destructive) { (action) in
+                   #warning("TODO : - 삭제 구현")
+
+                    // 해당 셀을 삭제하는 방법
+                    // 1. 현재의 셀의 위치를 파악한다. indexPath.row -> tableViewCell의 데이터소스에서 확인
+                    // 2. 그 위치에 있는 셀을 삭제한다.
+                    // 3. 리로드
+                    
+                    
+                    // 데이터를 삭제하는 방법
+                    // 1. 해당 셀에 들어오는 데이터를 파악한다. <- 여기서부터 막힘
+                    // 2. 데이터의 id를 파악한다.
+                    // 3-1. 해당 id를 가진 데이터를 제외하고 필터링해서 새로운 리스트 짜기
+                    // 3-2. 해당 id를 지우기
+                    // 4. 리로드
+                }
+                let cancleAction = UIAlertAction(title: "취소", style: .cancel, handler: nil)
+        
+                alert.addAction(okAction)
+                alert.addAction(cancleAction)
+
+        self.present(alert, animated: true)
+        
+    }
     
 }
 
@@ -59,7 +103,7 @@ extension MainListVC: UITableViewDataSource {
         //        return labels.count
         return dataList.count
     }
-    
+        
     // 각 row 마다 데이터 세팅.
     // 데이터 <-> UI 연동
     // 데이터 <-> 이벤트 연동
@@ -76,6 +120,8 @@ extension MainListVC: UITableViewDataSource {
         cell.editBtnClicked = {[weak self] data in
             print("수정버튼 클릭됨 data:")
             self?.navigateToChallengeVC(data: cellData)
+            
+    
         }
         
         return cell
@@ -141,6 +187,9 @@ extension MainListVC {
         
     }
     
+    
+    
+    
     /// AddChallengeVC으로 이동하라
     fileprivate func navigateToAddChallengeVC(){
         print(#fileID, #function, #line, "- ")
@@ -200,26 +249,27 @@ extension MainListVC: ChallengeDelegate{
         
     }
     
-    func deleteChallenge(id: UUID) {
+//    func deleteChallenge(delete: Challenge) {
+//
 //       let deleteIndex = self.dataList.firstIndex { aData in
-//            aData.id == id
+//           aData.id == delete.id
 //        }
 //
 //        guard let index = deleteIndex else { return }
 //
-//        self.dataList.remove(at: index)
+////        self.dataList = self.dataList.filter { aData in
+////            return aData.id != id
+////        }
+////        self.dataList = filteredDataList
 //
+//        self.dataList = self.dataList.filter { $0.id != delete.id }
 //
-//        self.dataList = self.dataList.filter { aData in
-//            return aData.id != id
-//        }
-//        self.dataList = filteredDataList
-        
-        self.dataList = self.dataList.filter { $0.id != id }
-        
-        self.myTableView.reloadData()
-        
-    }
+//        self.myTableView.reloadData()
+//
+//    }
+    
+    
+
         
     /// 추가된 챌린지 액션
     /// - Parameter added: 추가된 챌린지
@@ -235,50 +285,9 @@ extension MainListVC: ChallengeDelegate{
         print("MainVC - saveButtonClicked() called", #fileID, #function, #line)
         let addChallegeStoryboard = UIStoryboard(name: "AddChallenge", bundle: Bundle.main)
         let addChallengeVC = addChallegeStoryboard.instantiateViewController(withIdentifier: "AddChallengeVC") as! AddChallengeVC
-                
-        print("추가 전 dataList : \(self.dataList)")
-        
-//        let challengeData = Challenge(title: addChallengeVC.challengeData?.title ?? "",
-//                                      screenShot: addChallengeVC.challengeData?.screenShot ?? UIImage(systemName: "camera.badge.ellipsis"),
-//                                      content: addChallengeVC.challengeData?.content ?? "내용을 입력해주세요.")
-        
-        
-        print("추가 후 dataList : \(self.dataList)")
-        
         
         self.myTableView.reloadData()
         
-        //        addChallengeVC.saveBtnClicked = { challengeData in
-        //
-        //            print("AddChallengeVC - saveBtnClicked 완료.")
-        //            print("추가 전 dataList : \(self.dataList)")
-        //
-        //
-        //
-        //                // 옵셔널 언랩핑 및 데이터 추가
-        //                if let data = challengeData{
-        //                    self.dataList.insert(data, at: 0)
-        //                }
-        //
-        //                print("mainListVC에 데이터 추가 완료.")
-        //                print("추가 후 dataList : \(self.dataList)")
-        //
-        //                // 데이터 추가 후 리로드
-        //                self.myTableView.reloadData()
-        //
-        //                print("테이블뷰 데이터 리로드 완료")
-        //
-        //            }
-        
-        
-        //        let challengeData = Challenge(title: addChallengeVC.challengeData?.title ?? "",
-        //                                      screenShot: addChallengeVC.challengeData?.screenShot ?? UIImage(systemName: "camera.badge.ellipsis"),
-        //                                      content: addChallengeVC.challengeData?.content ?? "내용을 입력해주세요.")
-        
-        //        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
-        //            addChallengeVC.challengeData = challengeData
-        //
-        //        })
         self.navigationController?.pushViewController(addChallengeVC, animated: true)
         
     }

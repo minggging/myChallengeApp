@@ -8,9 +8,18 @@
 import Foundation
 import UIKit
 
-struct Challenge {
+struct Challenge: Encodable{
+    enum CodingKeys {
+    case id, title, screenShot, content
+    }
+    
     let id: UUID = UUID()
     var title : String
     var screenShot : UIImage?
     var content : String
+    
+    func encode(to encoder: Encoder) throws {
+    }
+
+    
 }
