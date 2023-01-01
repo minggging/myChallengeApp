@@ -9,12 +9,18 @@ import Foundation
 import UIKit
 import PhotosUI
 import Photos
-
+import Combine
+import SnapKit
+import SwiftUI
 
 class AddChallengeVC : UIViewController {
     
     
-    @IBOutlet weak var saveBtn: UIButton!
+    var subscriptions = Set<AnyCancellable>()
+
+    @IBOutlet weak var buttomConstraints: LayoutConstraint!
+    
+    @IBOutlet weak var saveBtn:UIButton!
     
     @IBOutlet weak var addTitle : UITextField!
     @IBOutlet weak var addImage : UIImageView!
@@ -25,23 +31,25 @@ class AddChallengeVC : UIViewController {
     // 델리겟 - 리모콘
     
     var myAddDelegate: ChallengeDelegate?
-        
+    
+    var currentSelectedAssetId : String? = nil
+    
     //    클로져로 받는 방법
     //    var saveBtnClicked : ((Challenge?) -> Void)? = nil
     
     
-//    var challengeData : Challenge? = nil {
-//        didSet{
-//            // 메인에 연결
-//            DispatchQueue.main.async {
-//                // AddChallengeVC와 챌린지데이터를 연결
-//                self.addTitle.text = self.challengeData?.title
-//                self.addImage.image = self.challengeData?.screenShot
-//                self.addText.text = self.challengeData?.content
-//                print("데이터 연결됨")
-//            }
-//        }
-//    }
+    var challengeData : Challenge? = nil {
+        didSet{
+            // 메인에 연결
+            DispatchQueue.main.async {
+                // AddChallengeVC와 챌린지데이터를 연결
+                self.addTitle.text = self.challengeData?.title
+                self.addImage.image = self.challengeData?.screenShot
+                self.addText.text = self.challengeData?.content
+                print("데이터 연결됨")
+            }
+        }
+    }
     
     /// 이미지 피커
     var imagePickerController : UIImagePickerController = UIImagePickerController()
@@ -49,19 +57,28 @@ class AddChallengeVC : UIViewController {
     //MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // 저장 버튼 (네비게이션바)
+        let saveNavBtn = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveTapped))
+
+        self.navigationItem.rightBarButtonItem = saveNavBtn
+
+        imagePickerController.delegate = self
+
         addText.delegate = self
-        saveBtn.layer.cornerRadius = 15
+//        saveBtn.layer.cornerRadius = 15
         
         // 텍스트뷰 첫 화면(placeholder처럼 보이도록)
         addText.text = "내용을 입력해주세요."
-        addText.textColor = UIColor.lightGray
+        addText.textColor = UIColor.secondarySystemFill
         print("여긴 화면 추가 뷰디드로드임")
         
         // 들어갈 이미지
         self.addImage.image = UIImage(named: "사용팁")
         
         //타이틀 = 글 제목
-        self.title = self.addTitle.text
+        self.title = self.addTitle.text ?? "제목을 입력해주세요."
+        print("\(self.addTitle.text)")
         print("타이틀입니다. \(title)")
         print("컨텐트 내용입니다. \(addText.text)")
         
@@ -82,23 +99,52 @@ class AddChallengeVC : UIViewController {
         
     } // viewDidLoad
     
+    @objc func hideKeyboard() {
+        self.view.endEditing(true)
+    }
+
+    
+    @objc func saveTapped() {
+        print("save 버튼 눌림 -", #fileID, #function, #line)
+        
+        let newChallengeData = Challenge(title: self.addTitle.text ?? "제목을 입력해주세요.",
+                                         content: self.addText.text,
+                                         screenShotAssetId: currentSelectedAssetId,
+                                         screenShot: self.addImage.image
+        )
+        
+        self.challengeData = newChallengeData
+        
+        self.performSegue(withIdentifier: "goBackToMain", sender: self)
+        
+//        myAddDelegate?.addChallenge(added: newChallengeData)
+//
+//
+//
+//        self.navigationController?.popViewController(animated: true)
+
+        
+    }
     
     //MARK: - 뷰의 저장 버튼
     //    //저장 버튼 누르고 타는 부분
-    @IBAction func onSaveBtnClicked(_ sender: UIButton) {
-        print("save 버튼 눌림 -", #fileID, #function, #line)
-        
-        let newChallengeData = Challenge(title: self.addTitle.text ?? "챌린지 제목을 입력해주세요 :)",
-                                         screenShot: self.addImage.image,
-                                         content: self.addText.text)
-        
-        myAddDelegate?.addChallenge(added: newChallengeData)
-        
-
-        
-        self.navigationController?.popViewController(animated: true)
-        
-    }
+    
+    //    @IBAction func onSaveBtnClicked(_ sender: UIButton) {
+//        print("save 버튼 눌림 -", #fileID, #function, #line)
+//
+//        let newChallengeData = Challenge(title: self.addTitle.text ?? "챌린지 제목을 입력해주세요 :)",
+//                                         content: self.addText.text,
+//                                         screenShotAssetId: currentSelectedAssetId,
+//                                         screenShot: self.addImage.image
+//        )
+//
+//        myAddDelegate?.addChallenge(added: newChallengeData)
+//
+//
+//
+//        self.navigationController?.popViewController(animated: true)
+//
+//    }
     
     
     
@@ -115,49 +161,66 @@ class AddChallengeVC : UIViewController {
     //    }
     //
     //
-        // 텍스트필드의 입력 값 변경을 감지하고, 값을 가져옴
-        @objc func textFieldDidChange(_ sender: UITextField) {
-            
-            self.addTitle?.text = sender.text
-            
-//            self.challengeData?.title = self.addTitle?.text ?? self.addTitle.placeholder!
-        }
+    // 텍스트필드의 입력 값 변경을 감지하고, 값을 가져옴
+    @objc func textFieldDidChange(_ sender: UITextField) {
+        
+        self.addTitle?.text = sender.text
+        
+        //            self.challengeData?.title = self.addTitle?.text ?? self.addTitle.placeholder!
+    }
     
     
     
     
     //MARK: - 앨범 관련
     // 이미지만 선택 가능, 1개까지 선택
+//    lazy var photoPickerConfig : PHPickerConfiguration = {
+//        var config = PHPickerConfiguration(photoLibrary: .shared())
+//        authPhotoLibrary(self) {}
+//        let sourceTypes: [PHPickerFilter] = [.images]
+//        config.filter = .any(of: sourceTypes)
+//        config.selectionLimit = 1
+//        config.preferredAssetRepresentationMode = .current
+//
+//        if #available(iOS 15, *) {
+//            config.selection = .ordered
+//        }
+//        return config
+//    }()
+
     lazy var photoPickerConfig : PHPickerConfiguration = {
         var config = PHPickerConfiguration(photoLibrary: .shared())
-        
-        let sourceTypes: [PHPickerFilter] = [.images]
-        config.filter = .any(of: sourceTypes)
-        config.selectionLimit = 1
-        config.preferredAssetRepresentationMode = .current
-        
-        if #available(iOS 15, *) {
-            config.selection = .ordered
-        }
+            let sourceTypes: [PHPickerFilter] = [.images]
+            config.filter = .any(of: sourceTypes)
+            config.selectionLimit = 1
+            config.preferredAssetRepresentationMode = .current
+            
+            if #available(iOS 15, *) {
+                config.selection = .ordered
+            }
         return config
     }()
+
     
     //MARK: - 사진 촬영 관련
     // 사진 촬영 및 편집 가능, 컨트롤러 보임
-    lazy var photoPickerController = PHPickerViewController(configuration: photoPickerConfig)
-    lazy var takePhotoController : UIImagePickerController = {
+    
         
-        let picker = UIImagePickerController()
-        picker.allowsEditing = true
-        picker.sourceType = .camera
-        picker.cameraCaptureMode = .photo
-        picker.showsCameraControls = true
-        
-        return picker
-    }()
-    
-    
-    
+        lazy var photoPickerController = PHPickerViewController(configuration: photoPickerConfig)
+        lazy var takePhotoController : UIImagePickerController = {
+            authDeviceCamera(self) { }
+
+            let picker = UIImagePickerController()
+            
+                picker.allowsEditing = true
+                picker.sourceType = .camera
+                picker.cameraCaptureMode = .photo
+                picker.showsCameraControls = true
+            
+            return picker
+
+        }()
+            
     
     //MARK: - 키보드 입력 완료 부분
     /// Done버튼
@@ -182,10 +245,14 @@ class AddChallengeVC : UIViewController {
     
     
     // 텍스트뷰가 터치 되었는지 아닌지 확인
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.addText.resignFirstResponder()
-        print("텍스트뷰 터치 됨")
-    }
+    //    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    //        self.addText.resignFirstResponder()
+    //        print("텍스트뷰 터치 됨")
+    //
+    //        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+    //        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+    //
+    //    }
     
     
 }
@@ -205,7 +272,7 @@ extension AddChallengeVC : UIImagePickerControllerDelegate & UINavigationControl
         // main과 데이터 연결
         DispatchQueue.main.async {
             self.addImage.image = selectedEditedImg
-//            self.challengeData?.screenShot = selectedEditedImg
+            //            self.challengeData?.screenShot = selectedEditedImg
         }
         // picker를 닫는 동작?
         self.takePhotoController.dismiss(animated: true, completion: nil)
@@ -222,19 +289,23 @@ extension AddChallengeVC : PHPickerViewControllerDelegate {
         print("result : \(results.count) -", #fileID, #function, #line)
         // 아마 새로운 선택을 했을 때 [PHPickerResult]의 배열을 바꾸기 위한 부분 같다
         var newSelection = [String: PHPickerResult]()
+        
         // forEach를 통해 클로저(데이터)를 넘겨주는 반복문
         results.forEach { result in
             // 이미지를 선택했을 때 불러올 class?와 그 때 타게 될 로직을 클로저로 설정한...건가?
+            
             result.itemProvider.loadObject(ofClass: UIImage.self) { reading, error in
                 // image가 첫 번째로 들어오는 매개변수(이미지)를 받고, error가 두번째로 들어오는 매개변수를 받는데, nil값이다..? 아니면 리턴해라???
                 guard let image = reading as? UIImage, error == nil else { return }
                 
-                print("selected image: \(image)")
+                print("selected image: \(image), result.assetId: \(result.assetIdentifier)")
+                
+                self.currentSelectedAssetId = result.assetIdentifier
                 
                 // 메인에 연결
                 DispatchQueue.main.async {
                     self.addImage.image = image
-//                    self.challengeData?.screenShot = image
+                    //                    self.challengeData?.screenShot = image
                 }
                 // forTypeIdentifier: 파일 식별자 부분에는 String, 그 다음 타게 되는 로직은 클로저로 되어있다 ( 뭐가 들어있는지는 모르겠음.. 사진의 url?)
                 result.itemProvider.loadFileRepresentation(forTypeIdentifier: "public.image") { [weak self] url, _ in
@@ -284,7 +355,7 @@ extension AddChallengeVC {
         })
         // 얼럿 컨트롤러에 사진 찍기 / 앨범 선택 시트 / 닫기 를 추가함
         alertController.addAction(showAlbumAction)
-        alertController.addAction(shootThePhotoAction)
+//        alertController.addAction(shootThePhotoAction)
         alertController.addAction(UIAlertAction(title: "닫기", style: .cancel, handler: { (action) in
             print("닫기")
         }))
@@ -327,7 +398,7 @@ extension AddChallengeVC : UITextViewDelegate {
     func textViewDidEndEditing(_ textView: UITextView) {
         if addText.text.isEmpty {
             addText.text =  "내용을 입력해주세요."
-            addText.textColor = UIColor.lightGray
+            addText.textColor = UIColor(named: "PlaceholderColor")
             
             print("플레이스홀더 -", #fileID, #function, #line)
         }
@@ -335,9 +406,9 @@ extension AddChallengeVC : UITextViewDelegate {
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
-        if addText.textColor == UIColor.lightGray {
+        if addText.text == "내용을 입력해주세요." {
             addText.text = nil
-            addText.textColor = UIColor.black
+            addText.textColor = UIColor(named: "textColor")
             
             print("플레이스홀더 -", #fileID, #function, #line)
             
@@ -346,5 +417,6 @@ extension AddChallengeVC : UITextViewDelegate {
     
     
 }
+
 
 

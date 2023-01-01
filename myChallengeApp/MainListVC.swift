@@ -5,32 +5,83 @@
 //  Created by 정민경 on 2022/11/16.
 //
 import UIKit
+import Photos
+import Combine
 
-class MainListVC: UIViewController {
-    
-    
-    
+
+class MainListVC: UIViewController, UIImagePickerControllerDelegate & UINavigationControllerDelegate {
+        
     @IBOutlet weak var myTableView: UITableView!
     
     var addBtnClicked : ((Challenge?) -> Void)? = nil
         
     var dataList : [Challenge] = [
-        Challenge(title: "Day 1 ! 오늘의 챌린지는?", screenShot: UIImage(named: "사용팁"), content: "오늘의 노력에 대해서 적어주세요 ! ")]
+        Challenge(title: "Day 1 ! 오늘의 챌린지는? :)"
+                  , content: "오늘의 노력에 대해서 적어주세요 ! ", screenShotAssetId: "defaultImage", screenShot: UIImage(named: "사용tip"))]
     
     var mainDelegate: ChallengeDelegate?
     
+    // 상세 챌린지 화면에 넘길 데이터
+    var selectedChallengeForChallengeBoardVC : Challenge? = nil
+    
+    let imagePickerController = UIImagePickerController()
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        imagePickerController.delegate = self
+
+        authPhotoLibrary(self, completion: {
+            print("허용 완료")
+        })
+            
         myTableView.dataSource = self
         myTableView.delegate = self
-                
+        
+        
         
         let addChallegeStoryboard = UIStoryboard(name: "AddChallenge", bundle: Bundle.main)
         let addChallengeVC = addChallegeStoryboard.instantiateViewController(withIdentifier: "AddChallengeVC") as! AddChallengeVC
         
         addChallengeVC.myAddDelegate = self
+
+        if let storedDataList : [ChallengeData] = UserDefaultsManager.shared.getChallengeList() {
+            self.dataList = storedDataList.map{ Challenge(storedData: $0) }
+            print("dataList: \(dataList)")
+            print("MainListVC - fetch photo - self.dataList.count : \(self.dataList.count)")
+            
+            fetchImages(data: dataList)
+        }
+        
         
     } // viewDidLoad.
+    
+    
+    func fetchImages(data: [Challenge]){
+        
+        var photos : [String : UIImage] = [:]
+        
+        let assetIds = data.compactMap { $0.screenShotAssetId }
+        
+        let options = PHFetchOptions()
+        let results = PHAsset.fetchAssets(withLocalIdentifiers: assetIds, options: options)
+        let manager = PHImageManager.default()
+        
+        let imgSize = CGSize(width: UIScreen.main.bounds.width * 2, height: UIScreen.main.bounds.height * 2)
+        
+        results.enumerateObjects {(thisAsset, index, _) in
+            manager.requestImage(for: thisAsset, targetSize: imgSize, contentMode: .default, options: nil, resultHandler: {(thisImage, _) in
+                let assetId = thisAsset.localIdentifier
+                photos[assetId] = thisImage
+                print("assetId: \(assetId)")
+                guard let index = self.dataList.firstIndex(where: { $0.screenShotAssetId == assetId }) else {
+                    return
+                }
+                self.dataList[index].screenShot = thisImage
+                self.myTableView.reloadData()
+            })
+        }
+    }
     
     // + 버튼을 누르면 챌린지 추가 화면으로 이동함
     @IBAction func onAddChallengeClicked(_ sender: Any) {
@@ -65,8 +116,6 @@ class MainListVC: UIViewController {
     @IBAction func deleteBtn(_ sender: UIButton) {
         let alert = UIAlertController(title: nil, message:"삭제 하시겠습니까?", preferredStyle: UIAlertController.Style.alert)
                 let okAction = UIAlertAction(title: "삭제", style: .destructive) { (action) in
-                   #warning("TODO : - 삭제 구현")
-
                     // 해당 셀을 삭제하는 방법
                     // 1. 현재의 셀의 위치를 파악한다. indexPath.row -> tableViewCell의 데이터소스에서 확인
                     // 2. 그 위치에 있는 셀을 삭제한다.
@@ -86,6 +135,18 @@ class MainListVC: UIViewController {
                 alert.addAction(cancleAction)
 
         self.present(alert, animated: true)
+        
+    }
+    
+    //MARK: - segueway 방식
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
+        
+        if let challengeBoardVC = segue.destination as? ChallengeBoardVC {
+            print("도착지가 챌린지 보드 입니다 ")
+            challengeBoardVC.challengeData = self.selectedChallengeForChallengeBoardVC
+            challengeBoardVC.myDelegate = self
+        }
         
     }
     
@@ -113,16 +174,37 @@ extension MainListVC: UITableViewDataSource {
         
         let cellData = dataList[indexPath.row]
         
-        // 위 작업을 마치면 커스텀 클래스의 outlet을 사용할 수 있다.
-        cell.titleLabel.text = cellData.title
-        cell.titleImage.image = cellData.screenShot
+//        cell.delegate = self
+        
+        // 쎌에 데이터 주기
+        cell.bind(data: cellData, delegate: self)
                 
-        cell.editBtnClicked = {[weak self] data in
-            print("수정버튼 클릭됨 data:")
-            self?.navigateToChallengeVC(data: cellData)
+        cell.editBtnClicked = { [weak self] _ in
             
-    
+            guard let self = self else { return }
+            
+            print("수정버튼 클릭됨 data: cellData: \(cellData.id)")
+            
+            self.selectedChallengeForChallengeBoardVC = cellData
+            
+            //1. 화면이동 - segue 방식
+            self.performSegue(withIdentifier: "navToChallengeBoard", sender: self)
+            
+            
+//            self?.selectedChallengeForChallengeBoardVC = cellData
+//            self?.navigateToChallengeVC(data: cellData)
         }
+        
+//        cell.deleteBtnClicked = { [weak self] id in
+//            guard let self = self else { return }
+//            print("삭제버튼 클릭됨 id: \(id)")
+//            self.showDeleteAlert(btnClicked: { (alertAction : AlertAction) in
+//                switch alertAction {
+//                case .delete: self.deleteAChallenge(id: id)
+//                case .cancel: print("취소됨")
+//                }
+//            })
+//        }
         
         return cell
     }
@@ -135,57 +217,57 @@ extension MainListVC {
     
     // 수정 전
     /// 챌린지 뷰컨으로 이동하라
-    fileprivate func navigateToChallengeVC(data: Challenge){
-        
-        print(#fileID, #function, #line, "- ")
-        // 이름이 ChallengeBoard 라는 UIStoryboard 파일 찾기
-        let storyboard = UIStoryboard(name: "ChallengeBoard", bundle: Bundle.main)
-        
-        // 찾은 스토리보드에서 스토리보드 아이디가 ChallengeBoardVC 인 뷰컨을 가져와라
-        let challengeBoardVC = storyboard.instantiateViewController(withIdentifier: "ChallengeBoardVC") as! ChallengeBoardVC
-        
-        // 챌린지보드뷰컨에 있는 doneBtnClicked(클로저)는
-        // 매개변수로 challengeData를 받는다
-        challengeBoardVC.doneBtnClicked = { challengeData in
-            
-            print("MainListVC - doneBtnClicked 완료. : \(challengeData)")
-            
-            // 옵셔널 언랩핑 및 데이터 추가
-            if let data = challengeData{
-                self.dataList.append(data)
-            }
-            
-            // 데이터 추가 후 리로드
-            self.myTableView.reloadData()
-        }
-        
-                
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
-            challengeBoardVC.challengeData = data
-        })
-        
-        challengeBoardVC.myDelegate = self
-        
-        // 네비게이션 컨트롤러 푸시함
-        self.navigationController?.pushViewController(challengeBoardVC, animated: true)
-        
-    }
-    
-    fileprivate func navigateToChallengeVCWithImg(selectedData: UIImage?){
-        print(#fileID, #function, #line, "- ")
-        // 이름이 ChallengeBoard 라는 UIStoryboard 파일 찾기
-        let storyboard = UIStoryboard(name: "ChallengeBoard", bundle: Bundle.main)
-        
-        // 찾은 스토리보드에서 스토리보드 아이디가 ChallengeBoardVC 인 뷰컨을 가져와라
-        let challengeBoardVC = storyboard.instantiateViewController(withIdentifier: "ChallengeBoardVC") as! ChallengeBoardVC
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
-        })
-        
-        // 네비게이션 컨트롤러 푸시함
-        self.navigationController?.pushViewController(challengeBoardVC, animated: true)
-        
-    }
+//    fileprivate func navigateToChallengeVC(data: Challenge){
+//
+//        print(#fileID, #function, #line, "- ")
+//        // 이름이 ChallengeBoard 라는 UIStoryboard 파일 찾기
+//        let storyboard = UIStoryboard(name: "ChallengeBoard", bundle: Bundle.main)
+//
+//        // 찾은 스토리보드에서 스토리보드 아이디가 ChallengeBoardVC 인 뷰컨을 가져와라
+//        let challengeBoardVC = storyboard.instantiateViewController(withIdentifier: "ChallengeBoardVC") as! ChallengeBoardVC
+//
+//        // 챌린지보드뷰컨에 있는 doneBtnClicked(클로저)는
+//        // 매개변수로 challengeData를 받는다
+//        challengeBoardVC.doneBtnClicked = { challengeData in
+//
+//            print("MainListVC - doneBtnClicked 완료. : \(challengeData)")
+//
+//            // 옵셔널 언랩핑 및 데이터 추가
+//            if let data = challengeData{
+//                self.dataList.append(data)
+//            }
+//
+//            // 데이터 추가 후 리로드
+//            self.myTableView.reloadData()
+//        }
+//
+//
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
+//            challengeBoardVC.challengeData = data
+//        })
+//
+//        challengeBoardVC.myDelegate = self
+//
+//        // 네비게이션 컨트롤러 푸시함
+//        self.navigationController?.pushViewController(challengeBoardVC, animated: true)
+//
+//    }
+//
+//    fileprivate func navigateToChallengeVCWithImg(selectedData: UIImage?){
+//        print(#fileID, #function, #line, "- ")
+//        // 이름이 ChallengeBoard 라는 UIStoryboard 파일 찾기
+//        let storyboard = UIStoryboard(name: "ChallengeBoard", bundle: Bundle.main)
+//
+//        // 찾은 스토리보드에서 스토리보드 아이디가 ChallengeBoardVC 인 뷰컨을 가져와라
+//        let challengeBoardVC = storyboard.instantiateViewController(withIdentifier: "ChallengeBoardVC") as! ChallengeBoardVC
+//
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
+//        })
+//
+//        // 네비게이션 컨트롤러 푸시함
+//        self.navigationController?.pushViewController(challengeBoardVC, animated: true)
+//
+//    }
     
     
     
@@ -208,6 +290,40 @@ extension MainListVC {
     
 }
 
+//MARK: - segue way 관련
+extension MainListVC {
+    
+    // 받는 처리
+    @IBAction func unwindToMain(unwindSegue: UIStoryboardSegue){
+        print("unwindToMain : unwindSegue: \(unwindSegue.source.title)")
+        
+        if let challengeBoardVC = unwindSegue.source as? ChallengeBoardVC {
+            print("from 챌린지 보드 입니다 ")
+                
+        }
+        
+        if let addChallengeVC = unwindSegue.source as? AddChallengeVC {
+            
+            let newChallengeData = addChallengeVC.challengeData
+            
+            if let newData = newChallengeData {
+                addChallenge(added: newData)
+            }
+            
+            print("addChallengeVC에서 넘어옴")
+
+            print("from Add 챌린지 보드 입니다 newChallengeData: \(newChallengeData?.title)")
+        }
+        
+    }
+//
+//    @IBAction func unwindFromChallengeBoardVC(unwindSegue: UIStoryboardUnwindSegueSource){
+//        print("챌린지 보드 VC 에서 들어옴 : unwindSegue: \(unwindSegue.source.title)")
+//    }
+//    @IBAction func unwindFromAddChallengeVC(unwindSegue: UIStoryboardUnwindSegueSource){
+//        print("Add 챌린지 VC 에서 들어옴 : unwindSegue: \(unwindSegue.source.title)")
+//    }
+}
 
 
 
@@ -226,12 +342,89 @@ extension MainListVC: UITableViewDelegate{
     
 }
 
+//MARK: - List 관련
+extension MainListVC {
+    
+    
+    /// 해당 아이템 삭제 -> 데이터 갱신 + UI 변경
+    /// - Parameter id: 삭제할 아이디
+    fileprivate func deleteAChallenge(id: UUID) {
+        print(#fileID, #function, #line, "- ")
+        // TODO: 해당 아이디로 찾아서 그녀석 지우기
+        self.dataList = self.dataList.filter { $0.id != id }
+
+        let dataListToBeStored = dataList.map{ ChallengeData(data: $0) }
+        
+        UserDefaultsManager.shared.setChallengeList(newList: dataListToBeStored)
+        
+        self.myTableView.reloadData()
+    }
+    
+    enum AlertAction {
+        case cancel
+        case delete
+    }
+    
+    /// 삭제 얼럿 띄우기
+    /// - Parameter id: 삭제할 아이디
+    ///
+    fileprivate func showDeleteAlert(btnClicked : @escaping (AlertAction) -> Void){
+        
+        print(#fileID, #function, #line, "")
+        
+        let alert = UIAlertController(title: nil, message:"삭제 하시겠습니까?", preferredStyle: UIAlertController.Style.alert)
+                // [1]
+                let okAction = UIAlertAction(title: "삭제", style: .destructive) { (action) in
+                    // 해당 셀을 삭제하는 방법
+                    // 1. 현재의 셀의 위치를 파악한다. indexPath.row -> tableViewCell의 데이터소스에서 확인
+                    // 2. 그 위치에 있는 셀을 삭제한다.
+                    // 3. 리로드
+                    
+                    
+                    // 데이터를 삭제하는 방법
+                    // 1. 해당 셀에 들어오는 데이터를 파악한다. <- 여기서부터 막힘
+                    // 2. 데이터의 id를 파악한다.
+                    // 3-1. 해당 id를 가진 데이터를 제외하고 필터링해서 새로운 리스트 짜기
+                    // 3-2. 해당 id를 지우기
+                    // 4. 리로드
+                    
+                    // [2]
+                    btnClicked(AlertAction.delete)
+                }
+        let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler: { _ in
+//            cancelClicked()
+            btnClicked(AlertAction.cancel)
+        })
+        
+                alert.addAction(okAction)
+                alert.addAction(cancelAction)
+
+        self.present(alert, animated: true)
+    }
+}
+
 //MARK: - 데이터 전달 델리겟 관련
 
 // 리모콘으로 들어온 이벤트를 처리할께
 //2. 델리겟 이벤트를 받는다고 설정
 extension MainListVC: ChallengeDelegate{
+    
+    
+    ///
+    /// - Parameter id:
+    func deleteChallenge(id: UUID) {
+        print(#fileID, #function, #line, "- id: \(id)")
+        showDeleteAlert(btnClicked: { (alertAction : AlertAction) in
+            switch alertAction {
+            case .delete: self.deleteAChallenge(id: id)
+            case .cancel: print("취소됨")
+            }
+        })
+    }
+    
     func editChallenge(edited: Challenge) {
+        print(#fileID, #function, #line, "- editChallenge edited:\(edited.screenShotAssetId)")
+        
         // 1. 불러온 데이터의 위치를 파악한다.
         let editIndex = self.dataList.firstIndex { aData in
             aData.id == edited.id
@@ -241,6 +434,11 @@ extension MainListVC: ChallengeDelegate{
         // 2. 수정된 데이터를 해당 위치에 교체한다.
         self.dataList[index] = edited
         
+        
+        let dataListToBeStored = dataList.map{ ChallengeData(data: $0) }
+        
+        UserDefaultsManager.shared.setChallengeList(newList: dataListToBeStored)
+        
         // 3. 리로드
         self.myTableView.reloadData()
         
@@ -248,26 +446,7 @@ extension MainListVC: ChallengeDelegate{
         print("\(edited)")
         
     }
-    
-//    func deleteChallenge(delete: Challenge) {
-//
-//       let deleteIndex = self.dataList.firstIndex { aData in
-//           aData.id == delete.id
-//        }
-//
-//        guard let index = deleteIndex else { return }
-//
-////        self.dataList = self.dataList.filter { aData in
-////            return aData.id != id
-////        }
-////        self.dataList = filteredDataList
-//
-//        self.dataList = self.dataList.filter { $0.id != delete.id }
-//
-//        self.myTableView.reloadData()
-//
-//    }
-    
+        
     
 
         
@@ -275,8 +454,15 @@ extension MainListVC: ChallengeDelegate{
     /// - Parameter added: 추가된 챌린지
     func addChallenge(added: Challenge) {
         print("added : \(added)", #fileID, #function, #line)
+        
+        print("added.screenShotAssetId : \(added.screenShotAssetId)", #fileID, #function, #line)
+        
         self.dataList.insert(added, at: 0)
-//        self.dataList.append(added)
+        
+        let dataListToBeStored = dataList.map{ ChallengeData(data: $0) }
+        
+        UserDefaultsManager.shared.setChallengeList(newList: dataListToBeStored)
+        
         self.myTableView.reloadData()
     }
     
@@ -292,3 +478,6 @@ extension MainListVC: ChallengeDelegate{
         
     }
 }
+
+
+

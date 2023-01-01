@@ -17,8 +17,8 @@ class CustomView : UIView {
     // cornerRadius는 CGFloat를 상속받고, 기본 설정은 0이다
     var cornerRadius: CGFloat = 0 {
         didSet{
-            self.layer.cornerRadius = cornerRadius
             self.clipsToBounds = true
+            self.layer.cornerRadius = cornerRadius
 
         }
     }
@@ -45,7 +45,6 @@ class CustomView : UIView {
             // hasShadow가 on 이면, applyShadow가 실행된다
             if hasShadow {
                 layer.applyShadow()
-                self.clipsToBounds = true
 
             }
         }
@@ -57,8 +56,8 @@ class CustomImgView : UIImageView {
     @IBInspectable
     var cornerRadius: CGFloat = 0 {
         didSet{
-            self.layer.cornerRadius = cornerRadius
             self.clipsToBounds = true
+            self.layer.cornerRadius = cornerRadius
         }
     }
     
@@ -83,7 +82,6 @@ class CustomImgView : UIImageView {
         didSet{
             if hasShadow {
                 layer.applyShadow()
-                self.clipsToBounds = true
 
             }
         }
@@ -95,8 +93,8 @@ class CustomTextView : UITextView {
     @IBInspectable
     var cornerRadius: CGFloat = 0 {
         didSet{
-            self.layer.cornerRadius = cornerRadius
             self.clipsToBounds = true
+            self.layer.cornerRadius = cornerRadius
 
         }
     }
@@ -122,7 +120,6 @@ class CustomTextView : UITextView {
         didSet{
             if hasShadow {
                 layer.applyShadow()
-                self.clipsToBounds = true
 
             }
         }
@@ -135,8 +132,8 @@ class CustomLabel : UILabel {
     @IBInspectable
     var cornerRadius: CGFloat = 0 {
         didSet{
-            self.layer.cornerRadius = cornerRadius
             self.clipsToBounds = true
+            self.layer.cornerRadius = cornerRadius
 
         }
     }
@@ -162,7 +159,6 @@ class CustomLabel : UILabel {
         didSet{
             if hasShadow {
                 layer.applyShadow()
-                self.clipsToBounds = true
 
             }
         }
@@ -175,8 +171,8 @@ class CustomTextField : UITextField {
     @IBInspectable
     var cornerRadius: CGFloat = 0 {
         didSet{
-            self.layer.cornerRadius = cornerRadius
             self.clipsToBounds = true
+            self.layer.cornerRadius = cornerRadius
 
         }
     }
@@ -202,7 +198,6 @@ class CustomTextField : UITextField {
         didSet{
             if hasShadow {
                 layer.applyShadow()
-                self.clipsToBounds = true
 
             }
         }

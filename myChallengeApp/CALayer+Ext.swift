@@ -20,7 +20,7 @@ extension CALayer {
     ///   - blur: 블러
     ///   - spread: 퍼짐 정도
   func applyShadow(
-    color: UIColor = .black,
+    color: UIColor = UIColor(named: "ShadowColor") ?? .black,
     alpha: Float = 0.3,
     x: CGFloat = 0,
     y: CGFloat = 20,

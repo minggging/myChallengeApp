@@ -6,6 +6,7 @@
 //
 import Foundation
 import UIKit
+import Photos
 
 
 class ViewController: UIViewController {
@@ -13,10 +14,9 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-            
+
+    } // viewDidLoad.
         
-    }
-
-
+    
 }
 

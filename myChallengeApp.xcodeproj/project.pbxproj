@@ -11,6 +11,10 @@
 		D22E0867292D05F600D354D5 /* AddChallengeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D22E0866292D05F600D354D5 /* AddChallengeVC.swift */; };
 		D22E0869292DBFAC00D354D5 /* AddChallenge.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D22E0868292DBFAC00D354D5 /* AddChallenge.storyboard */; };
 		D2B07249293CC086004790B4 /* ChallengeDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2B07248293CC086004790B4 /* ChallengeDelegate.swift */; };
+		D2BA22C7294B67A800F0E0B0 /* PhotoAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2BA22C6294B67A800F0E0B0 /* PhotoAuth.swift */; };
+		D2BA22C9294B67C600F0E0B0 /* PhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2BA22C8294B67C600F0E0B0 /* PhotoViewController.swift */; };
+		D2BA22CB294B67DE00F0E0B0 /* SimpleAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2BA22CA294B67DE00F0E0B0 /* SimpleAlert.swift */; };
+		D2BA22CD294B6BD200F0E0B0 /* photoAuth.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D2BA22CC294B6BD200F0E0B0 /* photoAuth.storyboard */; };
 		D2C73F2F291A87DE004BCED9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2C73F2E291A87DE004BCED9 /* AppDelegate.swift */; };
 		D2C73F31291A87DE004BCED9 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2C73F30291A87DE004BCED9 /* SceneDelegate.swift */; };
 		D2C73F33291A87DE004BCED9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2C73F32291A87DE004BCED9 /* ViewController.swift */; };
@@ -33,6 +37,7 @@
 		D2DF42862940C2E1005B076D /* NanumSquareNeo-bRg.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D2DF42842940C2E1005B076D /* NanumSquareNeo-bRg.ttf */; };
 		D2E1C1682924B95A00532E79 /* ChallengeBoard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D2E1C1672924B95A00532E79 /* ChallengeBoard.storyboard */; };
 		D2E1C16A2924CEDA00532E79 /* ChallengeBoardVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2E1C1692924CEDA00532E79 /* ChallengeBoardVC.swift */; };
+		F2B3079429460EC10035CF09 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2B3079329460EC10035CF09 /* UserDefaultsManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +45,10 @@
 		D22E0866292D05F600D354D5 /* AddChallengeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddChallengeVC.swift; sourceTree = "<group>"; };
 		D22E0868292DBFAC00D354D5 /* AddChallenge.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AddChallenge.storyboard; sourceTree = "<group>"; };
 		D2B07248293CC086004790B4 /* ChallengeDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeDelegate.swift; sourceTree = "<group>"; };
+		D2BA22C6294B67A800F0E0B0 /* PhotoAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoAuth.swift; sourceTree = "<group>"; };
+		D2BA22C8294B67C600F0E0B0 /* PhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoViewController.swift; sourceTree = "<group>"; };
+		D2BA22CA294B67DE00F0E0B0 /* SimpleAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleAlert.swift; sourceTree = "<group>"; };
+		D2BA22CC294B6BD200F0E0B0 /* photoAuth.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = photoAuth.storyboard; sourceTree = "<group>"; };
 		D2C73F2B291A87DE004BCED9 /* myChallengeApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = myChallengeApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2C73F2E291A87DE004BCED9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D2C73F30291A87DE004BCED9 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -61,6 +70,7 @@
 		D2DF42842940C2E1005B076D /* NanumSquareNeo-bRg.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NanumSquareNeo-bRg.ttf"; sourceTree = "<group>"; };
 		D2E1C1672924B95A00532E79 /* ChallengeBoard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ChallengeBoard.storyboard; sourceTree = "<group>"; };
 		D2E1C1692924CEDA00532E79 /* ChallengeBoardVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeBoardVC.swift; sourceTree = "<group>"; };
+		F2B3079329460EC10035CF09 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,6 +124,11 @@
 				D2C73F48291A9D2B004BCED9 /* CustomView.swift */,
 				D2C73F53291AB93F004BCED9 /* CALayer+Ext.swift */,
 				D22E0864292CFD0F00D354D5 /* Challenge.swift */,
+				F2B3079329460EC10035CF09 /* UserDefaultsManager.swift */,
+				D2BA22C6294B67A800F0E0B0 /* PhotoAuth.swift */,
+				D2BA22C8294B67C600F0E0B0 /* PhotoViewController.swift */,
+				D2BA22CA294B67DE00F0E0B0 /* SimpleAlert.swift */,
+				D2BA22CC294B6BD200F0E0B0 /* photoAuth.storyboard */,
 			);
 			path = myChallengeApp;
 			sourceTree = "<group>";
@@ -211,6 +226,7 @@
 				D2E1C1682924B95A00532E79 /* ChallengeBoard.storyboard in Resources */,
 				D2C73F4F291AA7FD004BCED9 /* Dongle-Bold.ttf in Resources */,
 				D2DF42862940C2E1005B076D /* NanumSquareNeo-bRg.ttf in Resources */,
+				D2BA22CD294B6BD200F0E0B0 /* photoAuth.storyboard in Resources */,
 				D2DF42852940C2E1005B076D /* NanumSquareNeo-cBd.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -224,15 +240,19 @@
 			files = (
 				D2C73F33291A87DE004BCED9 /* ViewController.swift in Sources */,
 				D2B07249293CC086004790B4 /* ChallengeDelegate.swift in Sources */,
+				F2B3079429460EC10035CF09 /* UserDefaultsManager.swift in Sources */,
 				D2C73F49291A9D2B004BCED9 /* CustomView.swift in Sources */,
 				D22E0867292D05F600D354D5 /* AddChallengeVC.swift in Sources */,
 				D2C73F2F291A87DE004BCED9 /* AppDelegate.swift in Sources */,
+				D2BA22C7294B67A800F0E0B0 /* PhotoAuth.swift in Sources */,
 				D2CF40F4292478F00074FE41 /* MainListVC.swift in Sources */,
 				D2C73F31291A87DE004BCED9 /* SceneDelegate.swift in Sources */,
 				D2E1C16A2924CEDA00532E79 /* ChallengeBoardVC.swift in Sources */,
 				D22E0865292CFD0F00D354D5 /* Challenge.swift in Sources */,
 				D2CF40F8292479C90074FE41 /* MainListCell.swift in Sources */,
 				D2C73F54291AB93F004BCED9 /* CALayer+Ext.swift in Sources */,
+				D2BA22CB294B67DE00F0E0B0 /* SimpleAlert.swift in Sources */,
+				D2BA22C9294B67C600F0E0B0 /* PhotoViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -300,7 +320,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -354,7 +374,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -370,25 +390,34 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 1.0;
 				DEVELOPMENT_TEAM = ASQWJ74VPR;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = myChallengeApp/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "오늘의 인증샷";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.lifestyle";
+				INFOPLIST_KEY_NSAppleMusicUsageDescription = "\"오늘의 인증샷\"에서 사진을 첨부 및 저장하기 위해 앨범 접근 허용이 필요합니다. 접근을 허용하지 않으면 사진 첨부 및 저장 기능을 사용할 수 없습니다.";
+				INFOPLIST_KEY_NSCameraUsageDescription = "\"오늘의 인증샷\"에서 사진을 카메라 촬영을 통해 첨부 및 저장하기 위해 카메라 접근 허용이 필요합니다. 접근을 허용하지 않으면 사진 촬영을 통한 첨부 및 저장 기능을 사용할 수 없습니다.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "\"오늘의 인증샷\"에서 사진을 첨부 및 저장하기 위해 앨범 접근 허용이 필요합니다. 접근을 허용하지 않으면 사진 첨부 및 저장 기능을 사용할 수 없습니다.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = MainList;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.07;
 				PRODUCT_BUNDLE_IDENTIFIER = com.minggging.myChallengeApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -398,25 +427,34 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 1.0;
 				DEVELOPMENT_TEAM = ASQWJ74VPR;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = myChallengeApp/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "오늘의 인증샷";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.lifestyle";
+				INFOPLIST_KEY_NSAppleMusicUsageDescription = "\"오늘의 인증샷\"에서 사진을 첨부 및 저장하기 위해 앨범 접근 허용이 필요합니다. 접근을 허용하지 않으면 사진 첨부 및 저장 기능을 사용할 수 없습니다.";
+				INFOPLIST_KEY_NSCameraUsageDescription = "\"오늘의 인증샷\"에서 사진을 카메라 촬영을 통해 첨부 및 저장하기 위해 카메라 접근 허용이 필요합니다. 접근을 허용하지 않으면 사진 촬영을 통한 첨부 및 저장 기능을 사용할 수 없습니다.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "\"오늘의 인증샷\"에서 사진을 첨부 및 저장하기 위해 앨범 접근 허용이 필요합니다. 접근을 허용하지 않으면 사진 첨부 및 저장 기능을 사용할 수 없습니다.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = MainList;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.07;
 				PRODUCT_BUNDLE_IDENTIFIER = com.minggging.myChallengeApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
