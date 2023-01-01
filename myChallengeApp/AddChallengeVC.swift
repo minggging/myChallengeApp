@@ -113,10 +113,27 @@ class AddChallengeVC : UIViewController {
                                          screenShot: self.addImage.image
         )
         
-        self.challengeData = newChallengeData
-        
-        self.performSegue(withIdentifier: "goBackToMain", sender: self)
-        
+        // 제목 없는 경우 처리
+        if newChallengeData.title == "" || newChallengeData.screenShotAssetId == ""{
+            // nil일 경우, 처리할 얼럿 띄우기
+            let alert = UIAlertController(title: "알림", message: "제목/사진을 추가해주세요.", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "OK", style: .default)
+            
+            alert.addAction(okAction)
+            
+            present(alert, animated: false, completion: nil)
+            
+            print("제목/사진 없음")
+            
+        } else  {
+                print("제목,사진 있음")
+            
+                self.challengeData = newChallengeData
+                
+                self.performSegue(withIdentifier: "goBackToMain", sender: self)
+                
+            }
+
 //        myAddDelegate?.addChallenge(added: newChallengeData)
 //
 //
