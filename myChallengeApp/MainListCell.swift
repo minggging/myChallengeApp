@@ -17,7 +17,7 @@ class MainListCell: UITableViewCell {
     @IBOutlet weak var editBtn: UIButton!
         
     
-    @objc var editBtnClicked : ((UIImage?) -> Void)? = nil
+    var editBtnClicked : ((Challenge?) -> Void)? = nil
     
     var delegate : ChallengeDelegate? = nil
     
@@ -32,7 +32,7 @@ class MainListCell: UITableViewCell {
         // Initialization code
         print(#fileID, #function, #line, "- <#comment#>")
                 
-        editBtn.addTarget(self, action: #selector(onEditBtnClicked), for: .touchUpInside)
+        editBtn.addTarget(self, action: #selector(onEditBtnClicked(_:)), for: .touchUpInside)
         
     }
         
@@ -63,13 +63,13 @@ class MainListCell: UITableViewCell {
     }
     
     // 이미지를 보냄
-    @objc fileprivate func onEditBtnClicked(){
-        print(#fileID, #function, #line, "- ")
+    @objc fileprivate func onEditBtnClicked(_ button:UIButton){
+        print(#fileID, #function, #line, "- button:\(button)")
         
         // 데이터 == 테이블뷰에 있는 이미지
         let data : UIImage? = self.titleImage.image
         // 이미지를 담음
-        editBtnClicked?(data)
+        editBtnClicked?(challenge)
     }
     
     @IBAction func onDeleteClicked(_ sender: UIButton) {

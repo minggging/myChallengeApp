@@ -24,17 +24,17 @@
             <objects>
                 <viewController storyboardIdentifier="AddChallengeVC" title="AddChallengeVC" extendedLayoutIncludesOpaqueBars="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="liy-SJ-BRN" customClass="AddChallengeVC" customModule="myChallengeApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="652-IZ-Icw">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="799"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hMD-XQ-wGy">
-                                <rect key="frame" x="0.0" y="79" width="393" height="720"/>
+                                <rect key="frame" x="0.0" y="59" width="393" height="793"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oO6-yP-R15" userLabel="ContainerView">
-                                        <rect key="frame" x="0.0" y="0.0" width="393" height="967"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="393" height="682"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6fJ-gk-8lw" userLabel="ChallengeBoardView" customClass="CustomView" customModule="myChallengeApp" customModuleProvider="target">
-                                                <rect key="frame" x="15" y="0.0" width="363" height="667"/>
+                                                <rect key="frame" x="15" y="15" width="363" height="667"/>
                                                 <subviews>
                                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" textAlignment="justified" translatesAutoresizingMaskIntoConstraints="NO" id="5UC-sK-AXw" customClass="CustomTextView" customModule="myChallengeApp" customModuleProvider="target">
                                                         <rect key="frame" x="15" y="412" width="333" height="240"/>
@@ -139,10 +139,10 @@
                                         </subviews>
                                         <color key="backgroundColor" systemColor="tertiarySystemGroupedBackgroundColor"/>
                                         <constraints>
-                                            <constraint firstItem="6fJ-gk-8lw" firstAttribute="top" secondItem="oO6-yP-R15" secondAttribute="top" id="4ob-f0-4sV"/>
+                                            <constraint firstItem="6fJ-gk-8lw" firstAttribute="top" secondItem="oO6-yP-R15" secondAttribute="top" constant="15" id="4ob-f0-4sV"/>
                                             <constraint firstItem="6fJ-gk-8lw" firstAttribute="leading" secondItem="oO6-yP-R15" secondAttribute="leading" constant="15" id="LpG-0g-ARl"/>
                                             <constraint firstAttribute="trailing" secondItem="6fJ-gk-8lw" secondAttribute="trailing" constant="15" id="yvC-fY-vaA"/>
-                                            <constraint firstAttribute="bottom" secondItem="6fJ-gk-8lw" secondAttribute="bottom" constant="300" id="zFu-kw-R0s" customClass="LayoutConstraint" customModule="SnapKit"/>
+                                            <constraint firstAttribute="bottom" secondItem="6fJ-gk-8lw" secondAttribute="bottom" id="zFu-kw-R0s" customClass="LayoutConstraint" customModule="SnapKit"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -164,27 +164,26 @@
                         <constraints>
                             <constraint firstItem="hMD-XQ-wGy" firstAttribute="width" secondItem="fCa-Dm-PqE" secondAttribute="width" id="4eS-1A-clc"/>
                             <constraint firstItem="hMD-XQ-wGy" firstAttribute="trailing" secondItem="fCa-Dm-PqE" secondAttribute="trailing" id="GaP-UR-VGB"/>
-                            <constraint firstItem="hMD-XQ-wGy" firstAttribute="top" secondItem="fCa-Dm-PqE" secondAttribute="top" constant="20" id="Hc1-Kg-0gQ"/>
+                            <constraint firstItem="hMD-XQ-wGy" firstAttribute="top" secondItem="fCa-Dm-PqE" secondAttribute="top" id="Hc1-Kg-0gQ"/>
                             <constraint firstItem="fCa-Dm-PqE" firstAttribute="leading" secondItem="hMD-XQ-wGy" secondAttribute="leading" id="hMl-hj-f4i"/>
-                            <constraint firstItem="hMD-XQ-wGy" firstAttribute="bottom" secondItem="652-IZ-Icw" secondAttribute="bottom" id="zlV-8D-HSb" customClass="LayoutConstraint" customModule="SnapKit"/>
+                            <constraint firstItem="hMD-XQ-wGy" firstAttribute="bottom" secondItem="652-IZ-Icw" secondAttribute="bottom" id="zlV-8D-HSb" userLabel="Scroll View Buttom Anchor" customClass="LayoutConstraint" customModule="SnapKit"/>
                         </constraints>
                     </view>
                     <toolbarItems/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
-                    <size key="freeformSize" width="393" height="799"/>
                     <connections>
                         <outlet property="addImage" destination="evZ-gK-A5f" id="Y2K-kl-L2C"/>
                         <outlet property="addImageBtn" destination="jem-Bk-K4I" id="aT1-QB-Dzc"/>
                         <outlet property="addText" destination="5UC-sK-AXw" id="GGw-gT-2YB"/>
                         <outlet property="addTitle" destination="981-Qt-8nc" id="ecX-iD-MnG"/>
-                        <outlet property="buttomConstraints" destination="zFu-kw-R0s" id="Ojv-By-1Ze"/>
+                        <outlet property="buttomConstraint" destination="zlV-8D-HSb" id="PV2-pe-Ez6"/>
                         <segue destination="W52-BM-S9o" kind="unwind" identifier="goBackToMain" unwindAction="unwindToMainWithUnwindSegue:" id="5dE-w1-GIQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PJl-O8-tEL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="W52-BM-S9o" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="3994.6564885496182" y="-0.35211267605633806"/>
+            <point key="canvasLocation" x="3994.6564885496182" y="-0.70422535211267612"/>
         </scene>
     </scenes>
     <designables>

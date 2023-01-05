@@ -16,27 +16,17 @@ import SwiftUI
 class AddChallengeVC : UIViewController {
     
     
-    var subscriptions = Set<AnyCancellable>()
-
-    @IBOutlet weak var buttomConstraints: LayoutConstraint!
-    
+    @IBOutlet weak var buttomConstraint: LayoutConstraint!
     @IBOutlet weak var saveBtn:UIButton!
-    
     @IBOutlet weak var addTitle : UITextField!
     @IBOutlet weak var addImage : UIImageView!
     @IBOutlet weak var addText : UITextView!
-    
     @IBOutlet weak var addImageBtn: UIButton!
     
-    // 델리겟 - 리모콘
+    var subscriptions = Set<AnyCancellable>()
     
-    var myAddDelegate: ChallengeDelegate?
     
     var currentSelectedAssetId : String? = nil
-    
-    //    클로져로 받는 방법
-    //    var saveBtnClicked : ((Challenge?) -> Void)? = nil
-    
     
     var challengeData : Challenge? = nil {
         didSet{
@@ -58,15 +48,18 @@ class AddChallengeVC : UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        
+        
         // 저장 버튼 (네비게이션바)
         let saveNavBtn = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveTapped))
-
+        
         self.navigationItem.rightBarButtonItem = saveNavBtn
-
+        
         imagePickerController.delegate = self
-
+        
         addText.delegate = self
-//        saveBtn.layer.cornerRadius = 15
         
         // 텍스트뷰 첫 화면(placeholder처럼 보이도록)
         addText.text = "내용을 입력해주세요."
@@ -99,10 +92,37 @@ class AddChallengeVC : UIViewController {
         
     } // viewDidLoad
     
+    //MARK: - 키보드 관련
+    @objc func keyboardWillShow(notification: NSNotification) {
+        
+        guard let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else {
+            return
+        }
+        print("키보드 올라감 -", #fileID, #function, #line)
+        
+        if addTitle.isEditing { return }
+        
+        self.view.frame.origin.y = 0 - keyboardSize.height
+        
+    }
+    
+    @objc func keyboardWillHide(notification: NSNotification) {
+        print("키보드 내려감 -", #fileID, #function, #line)
+        
+        self.view.frame.origin.y = 0
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        
+        self.view.endEditing(true)
+        
+    }
+    
+    
     @objc func hideKeyboard() {
         self.view.endEditing(true)
     }
-
+    
     
     @objc func saveTapped() {
         print("save 버튼 눌림 -", #fileID, #function, #line)
@@ -112,6 +132,7 @@ class AddChallengeVC : UIViewController {
                                          screenShotAssetId: currentSelectedAssetId,
                                          screenShot: self.addImage.image
         )
+        
         
         // 제목 없는 경우 처리
         if newChallengeData.title == "" || newChallengeData.screenShotAssetId == ""{
@@ -126,118 +147,65 @@ class AddChallengeVC : UIViewController {
             print("제목/사진 없음")
             
         } else  {
-                print("제목,사진 있음")
+            print("제목,사진 있음")
             
-                self.challengeData = newChallengeData
-                
-                self.performSegue(withIdentifier: "goBackToMain", sender: self)
-                
-            }
-
-//        myAddDelegate?.addChallenge(added: newChallengeData)
-//
-//
-//
-//        self.navigationController?.popViewController(animated: true)
-
+            self.challengeData = newChallengeData
+            
+            
+            NotificationCenter.default.post(name: .sendAddData, object: nil, userInfo: ["addedData" : newChallengeData])
+            print("noti -", #fileID, #function, #line)
+            
+            self.performSegue(withIdentifier: "goBackToMain", sender: self)
+            
+            print("segue -", #fileID, #function, #line)
+        }
         
     }
     
-    //MARK: - 뷰의 저장 버튼
-    //    //저장 버튼 누르고 타는 부분
-    
-    //    @IBAction func onSaveBtnClicked(_ sender: UIButton) {
-//        print("save 버튼 눌림 -", #fileID, #function, #line)
-//
-//        let newChallengeData = Challenge(title: self.addTitle.text ?? "챌린지 제목을 입력해주세요 :)",
-//                                         content: self.addText.text,
-//                                         screenShotAssetId: currentSelectedAssetId,
-//                                         screenShot: self.addImage.image
-//        )
-//
-//        myAddDelegate?.addChallenge(added: newChallengeData)
-//
-//
-//
-//        self.navigationController?.popViewController(animated: true)
-//
-//    }
-    
-    
-    
-    //        print("save 버튼 눌림 -", #fileID, #function, #line)
-    //        print("데이터 받기 전 : \(self.challengeData)")
-    //    //
-    //        // 저장 버튼을 누르면 saveBtnClicked(클로저)에 데이터가 들어간다
-    //                self.saveBtnClicked?(self.challengeData)
-    //        //        print("saveBtn눌리고 데이터 받음 \(self.challengeData)")
-    //
-    //        // 뷰컨 팝
-    //        self.navigationController?.popViewController(animated: true)
-    //        print("뷰컨트롤러 팝")
-    //    }
-    //
-    //
     // 텍스트필드의 입력 값 변경을 감지하고, 값을 가져옴
     @objc func textFieldDidChange(_ sender: UITextField) {
         
         self.addTitle?.text = sender.text
         
-        //            self.challengeData?.title = self.addTitle?.text ?? self.addTitle.placeholder!
     }
     
     
     
     
     //MARK: - 앨범 관련
-    // 이미지만 선택 가능, 1개까지 선택
-//    lazy var photoPickerConfig : PHPickerConfiguration = {
-//        var config = PHPickerConfiguration(photoLibrary: .shared())
-//        authPhotoLibrary(self) {}
-//        let sourceTypes: [PHPickerFilter] = [.images]
-//        config.filter = .any(of: sourceTypes)
-//        config.selectionLimit = 1
-//        config.preferredAssetRepresentationMode = .current
-//
-//        if #available(iOS 15, *) {
-//            config.selection = .ordered
-//        }
-//        return config
-//    }()
-
     lazy var photoPickerConfig : PHPickerConfiguration = {
         var config = PHPickerConfiguration(photoLibrary: .shared())
-            let sourceTypes: [PHPickerFilter] = [.images]
-            config.filter = .any(of: sourceTypes)
-            config.selectionLimit = 1
-            config.preferredAssetRepresentationMode = .current
-            
-            if #available(iOS 15, *) {
-                config.selection = .ordered
-            }
+        let sourceTypes: [PHPickerFilter] = [.images]
+        config.filter = .any(of: sourceTypes)
+        config.selectionLimit = 1
+        config.preferredAssetRepresentationMode = .current
+        
+        if #available(iOS 15, *) {
+            config.selection = .ordered
+        }
         return config
     }()
-
+    
     
     //MARK: - 사진 촬영 관련
     // 사진 촬영 및 편집 가능, 컨트롤러 보임
     
+    
+    lazy var photoPickerController = PHPickerViewController(configuration: photoPickerConfig)
+    lazy var takePhotoController : UIImagePickerController = {
+        authDeviceCamera(self) { }
         
-        lazy var photoPickerController = PHPickerViewController(configuration: photoPickerConfig)
-        lazy var takePhotoController : UIImagePickerController = {
-            authDeviceCamera(self) { }
-
-            let picker = UIImagePickerController()
-            
-                picker.allowsEditing = true
-                picker.sourceType = .camera
-                picker.cameraCaptureMode = .photo
-                picker.showsCameraControls = true
-            
-            return picker
-
-        }()
-            
+        let picker = UIImagePickerController()
+        
+        picker.allowsEditing = true
+        picker.sourceType = .camera
+        picker.cameraCaptureMode = .photo
+        picker.showsCameraControls = true
+        
+        return picker
+        
+    }()
+    
     
     //MARK: - 키보드 입력 완료 부분
     /// Done버튼
@@ -259,18 +227,6 @@ class AddChallengeVC : UIViewController {
         self.present(self.getPhotoSelectBottomSheet(), animated: true, completion: nil)
         
     }
-    
-    
-    // 텍스트뷰가 터치 되었는지 아닌지 확인
-    //    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-    //        self.addText.resignFirstResponder()
-    //        print("텍스트뷰 터치 됨")
-    //
-    //        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
-    //        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
-    //
-    //    }
-    
     
 }
 
@@ -322,7 +278,6 @@ extension AddChallengeVC : PHPickerViewControllerDelegate {
                 // 메인에 연결
                 DispatchQueue.main.async {
                     self.addImage.image = image
-                    //                    self.challengeData?.screenShot = image
                 }
                 // forTypeIdentifier: 파일 식별자 부분에는 String, 그 다음 타게 되는 로직은 클로저로 되어있다 ( 뭐가 들어있는지는 모르겠음.. 사진의 url?)
                 result.itemProvider.loadFileRepresentation(forTypeIdentifier: "public.image") { [weak self] url, _ in
@@ -372,7 +327,6 @@ extension AddChallengeVC {
         })
         // 얼럿 컨트롤러에 사진 찍기 / 앨범 선택 시트 / 닫기 를 추가함
         alertController.addAction(showAlbumAction)
-//        alertController.addAction(shootThePhotoAction)
         alertController.addAction(UIAlertAction(title: "닫기", style: .cancel, handler: { (action) in
             print("닫기")
         }))
@@ -437,3 +391,6 @@ extension AddChallengeVC : UITextViewDelegate {
 
 
 
+extension Notification.Name {
+    static let sendAddData = Notification.Name("sendAddData")
+}

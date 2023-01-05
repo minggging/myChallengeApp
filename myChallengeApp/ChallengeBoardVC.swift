@@ -15,7 +15,7 @@ class ChallengeBoardVC: UIViewController {
     @IBOutlet weak var myTitle: UITextField!
     @IBOutlet weak var myImage: UIImageView!
     @IBOutlet weak var myText: UITextView!
-
+    
     @IBOutlet weak var doneBtn: UIButton!
     
     @IBOutlet weak var editImageBtn: UIButton!
@@ -23,50 +23,42 @@ class ChallengeBoardVC: UIViewController {
     @IBOutlet weak var buttomConstraints: NSLayoutConstraint!
     
     var subscriptions = Set<AnyCancellable>()
-
-    
-//    var doneBtnClicked : ((Challenge?) -> Void)? = nil
     
     var challengeData : Challenge? = nil
-//    {
-//        didSet{
-//            DispatchQueue.main.async {
-//                self.myTitle.text = self.challengeData?.title
-//                self.myImage.image = self.challengeData?.screenShot
-//                self.myText.text = self.challengeData?.content
-//            }
-//        }
-//    }
-        
+    
     var myDelegate: ChallengeDelegate? = nil
     
     /// 이미지 피커
     var imagePickerController : UIImagePickerController = UIImagePickerController()
-
+    
     var currentSelectedAssetId : String? = nil
-
+    
+    //MARK: - viewDidLoad
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        
+        
+        
         // Done 버튼 (네비게이션바)
         let saveNavBtn = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneTapped))
-
+        
         self.navigationItem.rightBarButtonItem = saveNavBtn
         
         imagePickerController.delegate = self
-
+        
         
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.hideKeyboard))
         self.view.addGestureRecognizer(tap)
         
-
+        
         
         
         myText.delegate = self
-        
-//        doneBtn.layer.cornerRadius = 10
         
         // 텍스트뷰 첫 화면(placeholder처럼 보이도록)
         myText.text = "내용을 입력해주세요."
@@ -74,10 +66,10 @@ class ChallengeBoardVC: UIViewController {
         
         // 텍스트필드 변화 감지
         self.myTitle.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: .editingChanged)
-
+        
         // 사진 수정 버튼은 showImageAlert을 탄다
         self.editImageBtn.addTarget(self, action: #selector(self.showImageAlert(_:)), for: .touchUpInside)
-
+        
         
         /// 키보드 입력 완료 버튼
         self.accessoryDoneButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.done, target: self, action: #selector(self.donePressed))
@@ -86,8 +78,8 @@ class ChallengeBoardVC: UIViewController {
         // 텍스트가 들어가는 부분에 추가함
         self.myTitle.inputAccessoryView = self.accessoryToolBar
         self.myText.inputAccessoryView = self.accessoryToolBar
-
-
+        
+        
         // 화면이 열릴때 데이터가 있다면 세팅해주기
         guard let title = self.challengeData?.title,
               let content = self.challengeData?.content,
@@ -101,17 +93,39 @@ class ChallengeBoardVC: UIViewController {
         self.myText.text = content
         
     } // viewDidLoad
-
+    
+    //MARK: - 키보드 관련
+    @objc func keyboardWillShow(notification: NSNotification) {
+        
+        guard let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else {
+            return
+        }
+        print("키보드 올라감 -", #fileID, #function, #line)
+        
+        if myTitle.isEditing { return }
+        
+        self.view.frame.origin.y = 0 - keyboardSize.height
+    }
+    
+    @objc func keyboardWillHide(notification: NSNotification) {
+        print("키보드 내려감 -", #fileID, #function, #line)
+        
+        self.view.frame.origin.y = 0
+    }
+    
     @objc func hideKeyboard() {
         self.view.endEditing(true)
     }
-
+    
     
     
     // 텍스트뷰가 터치 되었는지 아닌지 확인
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.myText.resignFirstResponder()
         print("텍스트뷰 터치 됨")
+        
+        self.view.endEditing(true)
+        
     }
     
     // 텍스트필드의 입력 값 변경을 감지하고, 값을 가져옴
@@ -119,52 +133,27 @@ class ChallengeBoardVC: UIViewController {
         
         self.myTitle?.text = sender.text
         
-//            self.challengeData?.title = self.addTitle?.text ?? self.addTitle.placeholder!
     }
-
+    
+    //MARK: - DONE Btn 관련
     @objc func doneTapped() {
         print(#fileID, #function, #line, "- ")
         
         self.challengeData?.title = self.myTitle.text ?? "제목을 입력해주세요."
         self.challengeData?.content = self.myText.text ?? "내용을 입력해주세요."
         
-//        if let image = self.myImage.image {
-//            self.challengeData?.screenShot = image
-//        }
-
-      
         let editedScreenShotAssetId = self.challengeData?.screenShotAssetId
         
         guard let data = self.challengeData else { return }
         
-        myDelegate?.editChallenge(edited: data)
+        NotificationCenter.default.post(name: .sendEditData, object: nil, userInfo: ["editedData" : data])
+        print("edit noti -", #fileID, #function, #line)
         
         self.navigationController?.popViewController(animated: true)
-
+        
         
     }
     
-    
-    //MARK: - Done Btn
-//    @IBAction func onDoneBtnClicked(_ sender: UIButton) {
-//        print(#fileID, #function, #line, "- ")
-//
-//        self.challengeData?.title = self.myTitle.text ?? ""
-//        self.challengeData?.content = self.myText.text ?? ""
-//
-//        if let image = self.myImage.image {
-//            self.challengeData?.screenShot = image
-//        }
-//
-//
-//        guard let data = self.challengeData else { return }
-//
-//        myDelegate?.editChallenge(edited: data)
-//
-//        self.navigationController?.popViewController(animated: true)
-//
-//        self.doneBtnClicked?(self.challengeData)
-//    }
     
     //MARK: - 앨범 관련
     // 이미지만 선택 가능, 1개까지 선택
@@ -172,7 +161,7 @@ class ChallengeBoardVC: UIViewController {
         var config = PHPickerConfiguration(photoLibrary: .shared())
         
         authPhotoLibrary(self) {}
-
+        
         
         let sourceTypes: [PHPickerFilter] = [.images]
         config.filter = .any(of: sourceTypes)
@@ -191,7 +180,7 @@ class ChallengeBoardVC: UIViewController {
     lazy var takePhotoController : UIImagePickerController = {
         
         authDeviceCamera(self) { }
-
+        
         
         let picker = UIImagePickerController()
         picker.allowsEditing = true
@@ -328,7 +317,6 @@ extension ChallengeBoardVC {
         })
         // 얼럿 컨트롤러에 사진 찍기 / 앨범 선택 시트 / 닫기 를 추가함
         alertController.addAction(showAlbumAction)
-//        alertController.addAction(shootThePhotoAction)
         alertController.addAction(UIAlertAction(title: "닫기", style: .cancel, handler: { (action) in
             print("닫기")
         }))
@@ -368,26 +356,29 @@ extension ChallengeBoardVC {
 
 /// 플레이스 홀더 설정
 extension ChallengeBoardVC : UITextViewDelegate {
-//
+    //
     func textViewDidEndEditing(_ textView: UITextView) {
         if myText.text.isEmpty {
             myText.text =  "내용을 입력해주세요."
             myText.textColor = UIColor(named: "PlaceholderColor")
-
-                    print("플레이스홀더 -", #fileID, #function, #line)
+            
+            print("플레이스홀더 -", #fileID, #function, #line)
         }
-
+        
     }
-
+    
     func textViewDidBeginEditing(_ textView: UITextView) {
         if myText.text == "내용을 입력해주세요." {
             myText.text = nil
             myText.textColor = UIColor(named: "textColor")
-
+            
             print("플레이스홀더 -", #fileID, #function, #line)
-
+            
         }
     }
 }
 
 
+extension Notification.Name {
+    static let sendEditData = Notification.Name("sendEditData")
+}

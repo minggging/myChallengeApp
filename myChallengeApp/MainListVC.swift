@@ -25,10 +25,37 @@ class MainListVC: UIViewController, UIImagePickerControllerDelegate & UINavigati
     var selectedChallengeForChallengeBoardVC : Challenge? = nil
     
     let imagePickerController = UIImagePickerController()
-
     
+    //MARK: - Notification으로 데이터 받기 관련 (Add)
+    @objc func getAddedData(_ noti: Notification) {
+                print("addedData 받음 -", #fileID, #function, #line)
+        
+        guard let newData = noti.userInfo?["addedData"] as? Any else { return print("노티에서 받은 데이터 없음")}
+                
+        addChallenge(added: newData as! Challenge)
+    }
+    //MARK: - Notification으로 데이터 받기 관련 (Edit)
+
+    @objc func getEditedData(_ noti: Notification) {
+                print("editedData 받음 -", #fileID, #function, #line)
+        
+        guard let editedData = noti.userInfo?["editedData"] as? Any else { return print("노티에서 받은 데이터 없음")}
+        
+        editChallenge(edited: editedData as! Challenge)
+    }
+
+    //MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+                print("comment -", #fileID, #function, #line)
+        
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(getAddedData(_:)), name: Notification.Name("sendAddData"), object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(getEditedData(_:)), name: Notification.Name("sendEditData"), object: nil)
+
+        
         imagePickerController.delegate = self
 
         authPhotoLibrary(self, completion: {
@@ -43,7 +70,6 @@ class MainListVC: UIViewController, UIImagePickerControllerDelegate & UINavigati
         let addChallegeStoryboard = UIStoryboard(name: "AddChallenge", bundle: Bundle.main)
         let addChallengeVC = addChallegeStoryboard.instantiateViewController(withIdentifier: "AddChallengeVC") as! AddChallengeVC
         
-        addChallengeVC.myAddDelegate = self
 
         if let storedDataList : [ChallengeData] = UserDefaultsManager.shared.getChallengeList() {
             self.dataList = storedDataList.map{ Challenge(storedData: $0) }
@@ -55,6 +81,16 @@ class MainListVC: UIViewController, UIImagePickerControllerDelegate & UINavigati
         
         
     } // viewDidLoad.
+    
+    
+    deinit{
+        NotificationCenter.default.removeObserver(self, name: .sendAddData, object: nil)
+        NotificationCenter.default.removeObserver(self, name: .sendEditData, object: nil)
+        
+        
+    }
+    
+    
     
     
     func fetchImages(data: [Challenge]){
@@ -90,25 +126,6 @@ class MainListVC: UIViewController, UIImagePickerControllerDelegate & UINavigati
         self.navigateToAddChallengeVC()
         
     }
-    /*    //MARK: - delete Btn
-
-        @IBAction func onDeleteBtnClicked(_ sender: UIButton) {
-            print(#fileID, #function, #line, "- ")
-
-            if let id = challengeData?.id {
-                myDelegate?.deleteChallenge(id: id)
-            }
-
-    //        guard let id = challengeData?.id else {
-    //            print("id 없음")
-    //            return
-    //        }
-    //        myDelegate?.deleteChallenge(id: id)
-
-            self.navigationController?.popViewController(animated: true)
-
-
-        } */
 
 
     
@@ -179,99 +196,25 @@ extension MainListVC: UITableViewDataSource {
         // 쎌에 데이터 주기
         cell.bind(data: cellData, delegate: self)
                 
-        cell.editBtnClicked = { [weak self] _ in
-            
-            guard let self = self else { return }
-            
-            print("수정버튼 클릭됨 data: cellData: \(cellData.id)")
-            
-            self.selectedChallengeForChallengeBoardVC = cellData
-            
-            //1. 화면이동 - segue 방식
-            self.performSegue(withIdentifier: "navToChallengeBoard", sender: self)
-            
-            
-//            self?.selectedChallengeForChallengeBoardVC = cellData
-//            self?.navigateToChallengeVC(data: cellData)
-        }
-        
-//        cell.deleteBtnClicked = { [weak self] id in
-//            guard let self = self else { return }
-//            print("삭제버튼 클릭됨 id: \(id)")
-//            self.showDeleteAlert(btnClicked: { (alertAction : AlertAction) in
-//                switch alertAction {
-//                case .delete: self.deleteAChallenge(id: id)
-//                case .cancel: print("취소됨")
-//                }
-//            })
-//        }
+        cell.editBtnClicked = navToChallenge(_:)
         
         return cell
     }
     
+        fileprivate func navToChallenge(_ cellData:Challenge?) {
+                print("<#comment#> -", #fileID, #function, #line)
+        
+        self.selectedChallengeForChallengeBoardVC = cellData
+        
+        self.performSegue(withIdentifier: "navToChallengeBoard", sender: self)
+
+    }
     
 }
 
 //MARK: - 화면이동 관련
 extension MainListVC {
-    
-    // 수정 전
-    /// 챌린지 뷰컨으로 이동하라
-//    fileprivate func navigateToChallengeVC(data: Challenge){
-//
-//        print(#fileID, #function, #line, "- ")
-//        // 이름이 ChallengeBoard 라는 UIStoryboard 파일 찾기
-//        let storyboard = UIStoryboard(name: "ChallengeBoard", bundle: Bundle.main)
-//
-//        // 찾은 스토리보드에서 스토리보드 아이디가 ChallengeBoardVC 인 뷰컨을 가져와라
-//        let challengeBoardVC = storyboard.instantiateViewController(withIdentifier: "ChallengeBoardVC") as! ChallengeBoardVC
-//
-//        // 챌린지보드뷰컨에 있는 doneBtnClicked(클로저)는
-//        // 매개변수로 challengeData를 받는다
-//        challengeBoardVC.doneBtnClicked = { challengeData in
-//
-//            print("MainListVC - doneBtnClicked 완료. : \(challengeData)")
-//
-//            // 옵셔널 언랩핑 및 데이터 추가
-//            if let data = challengeData{
-//                self.dataList.append(data)
-//            }
-//
-//            // 데이터 추가 후 리로드
-//            self.myTableView.reloadData()
-//        }
-//
-//
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
-//            challengeBoardVC.challengeData = data
-//        })
-//
-//        challengeBoardVC.myDelegate = self
-//
-//        // 네비게이션 컨트롤러 푸시함
-//        self.navigationController?.pushViewController(challengeBoardVC, animated: true)
-//
-//    }
-//
-//    fileprivate func navigateToChallengeVCWithImg(selectedData: UIImage?){
-//        print(#fileID, #function, #line, "- ")
-//        // 이름이 ChallengeBoard 라는 UIStoryboard 파일 찾기
-//        let storyboard = UIStoryboard(name: "ChallengeBoard", bundle: Bundle.main)
-//
-//        // 찾은 스토리보드에서 스토리보드 아이디가 ChallengeBoardVC 인 뷰컨을 가져와라
-//        let challengeBoardVC = storyboard.instantiateViewController(withIdentifier: "ChallengeBoardVC") as! ChallengeBoardVC
-//
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
-//        })
-//
-//        // 네비게이션 컨트롤러 푸시함
-//        self.navigationController?.pushViewController(challengeBoardVC, animated: true)
-//
-//    }
-    
-    
-    
-    
+        
     /// AddChallengeVC으로 이동하라
     fileprivate func navigateToAddChallengeVC(){
         print(#fileID, #function, #line, "- ")
@@ -279,11 +222,6 @@ extension MainListVC {
         let addChallegeStoryboard = UIStoryboard(name: "AddChallenge", bundle: Bundle.main)
         let addChallengeVC = addChallegeStoryboard.instantiateViewController(withIdentifier: "AddChallengeVC") as! AddChallengeVC
         
-//        self.dataSend()
-        
-        // 3. 받는 쪽 (MainListVC) --- 보내는 쪽, 즉 리모콘 (AddChallengeVC.myAddDelegate)
-        // 서로 연결
-        addChallengeVC.myAddDelegate = self
         
         self.navigationController?.pushViewController(addChallengeVC, animated: true)
     }
@@ -296,38 +234,22 @@ extension MainListVC {
     // 받는 처리
     @IBAction func unwindToMain(unwindSegue: UIStoryboardSegue){
         print("unwindToMain : unwindSegue: \(unwindSegue.source.title)")
-        
+
         if let challengeBoardVC = unwindSegue.source as? ChallengeBoardVC {
             print("from 챌린지 보드 입니다 ")
-                
+
         }
-        
+
         if let addChallengeVC = unwindSegue.source as? AddChallengeVC {
-            
-            let newChallengeData = addChallengeVC.challengeData
-            
-            if let newData = newChallengeData {
-                addChallenge(added: newData)
-            }
-            
+
+
             print("addChallengeVC에서 넘어옴")
 
-            print("from Add 챌린지 보드 입니다 newChallengeData: \(newChallengeData?.title)")
         }
-        
+
     }
-//
-//    @IBAction func unwindFromChallengeBoardVC(unwindSegue: UIStoryboardUnwindSegueSource){
-//        print("챌린지 보드 VC 에서 들어옴 : unwindSegue: \(unwindSegue.source.title)")
-//    }
-//    @IBAction func unwindFromAddChallengeVC(unwindSegue: UIStoryboardUnwindSegueSource){
-//        print("Add 챌린지 VC 에서 들어옴 : unwindSegue: \(unwindSegue.source.title)")
-//    }
+
 }
-
-
-
-
 
 
 
@@ -392,7 +314,6 @@ extension MainListVC {
                     btnClicked(AlertAction.delete)
                 }
         let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler: { _ in
-//            cancelClicked()
             btnClicked(AlertAction.cancel)
         })
         
@@ -478,6 +399,4 @@ extension MainListVC: ChallengeDelegate{
         
     }
 }
-
-
 
